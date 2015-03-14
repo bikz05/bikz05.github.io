@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
-gem 'jekyll_figure'
 gem 'jemoji'
+gem 'jekyll_figure'
 gem 'jekyll-redirect-from'

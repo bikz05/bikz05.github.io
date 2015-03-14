@@ -32,17 +32,24 @@ ul, ol, dl, figure,
  * Images
  */
 img {
+  max-width: 100%; }
+
+/**
+ * Figures
+ */
+figure > img {
   max-width: 100%;
   vertical-align: middle;
   display: block;
   margin-left: auto;
   margin-right: auto; }
 
-/**
- * Figures
- */
-figure > img {
-  display: block; }
+figure img {
+  max-width: 100%;
+  vertical-align: middle;
+  display: block;
+  margin-left: auto;
+  margin-right: auto; }
 
 figcaption {
   font-size: 14px;
