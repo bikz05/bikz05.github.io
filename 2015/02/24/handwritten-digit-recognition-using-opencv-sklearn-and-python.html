@@ -1,5 +1,17 @@
 <!DOCTYPE html>
 <html>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58227951-1', 'http://hanzratech.in');
+  ga('send', 'pageview');
+
+</script>
+
 
   <head>
     <meta charset="utf-8">
@@ -274,7 +286,7 @@
 <span class="lineno">44</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s">&quot;Resulting Image with Rectangular ROIs&quot;</span><span class="p">,</span> <span class="n">im</span><span class="p">)</span>
 <span class="lineno">45</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">()</span></code></pre></div>
 
-<p>From <strong>line 2-5</strong> we load the required modules. In <strong>line 8</strong>, we load the classifier from the file <strong>digits_cls.pkl __which we had saved in the previous script. In __line 11</strong>, we load the test image and in <strong>line 14</strong> we convert it to a grayscale image using <code>cv2.cvtColor</code> function. We then apply a Gaussian filter in <strong>line 15</strong> to the grayscale image to remove noisy pixels. In <strong>line 18</strong>, we convert the grayscale image into a binary image using a threshold value of 90. All the pixel locations with grayscale values greater than 90 are set to 0 in the binary image and all the pixel locations with grayscale values less than 90 are set to 255 in the binary image. In <strong>line 21</strong>, we calculate the contours in the image and then in <strong>line 24 __we calculate the bounding box for each contour. From __line 28-35</strong> for each bounding box, we generate a bounding square around each contour. Then in <strong>line 37, __we then resize each bounding square to a size of 28×28 and dilate it in __line 38.</strong> In <strong>line 40</strong>, we calculate the HOG features for each bounding square. Remember here that the HOG feature vector for each bounding square should be of the same size for which the classifier was trained, else you will get an error. In <strong>line 41</strong>, we predict the digit using our classifier. We also draw the bounding box and the predicted digit on the input image. Finally, in <strong>line 44</strong> we display the image.</p>
+<p>From <strong>line 2-5</strong> we load the required modules. In <strong>line 8</strong>, we load the classifier from the file <strong>digits_cls.pkl __which we had saved in the previous script. In __line 11</strong>, we load the test image and in <strong>line 14</strong> we convert it to a grayscale image using <code>cv2.cvtColor</code> function. We then apply a Gaussian filter in <strong>line 15</strong> to the grayscale image to remove noisy pixels. In <strong>line 18</strong>, we convert the grayscale image into a binary image using a threshold value of 90. All the pixel locations with grayscale values greater than 90 are set to 0 in the binary image and all the pixel locations with grayscale values less than 90 are set to 255 in the binary image. In <strong>line 21</strong>, we calculate the contours in the image and then in <strong>line 24</strong> we calculate the bounding box for each contour. From <strong>line 28-35</strong> for each bounding box, we generate a bounding square around each contour. Then in <strong>line 37</strong>, we then resize each bounding square to a size of 28×28 and dilate it in <strong>line 38</strong>. In <strong>line 40</strong>, we calculate the HOG features for each bounding square. Remember here that the HOG feature vector for each bounding square should be of the same size for which the classifier was trained, else you will get an error. In <strong>line 41</strong>, we predict the digit using our classifier. We also draw the bounding box and the predicted digit on the input image. Finally, in <strong>line 44</strong> we display the image.</p>
 
 <p>I tested the classifier on this image -</p>
 
@@ -316,7 +328,7 @@
 
 <h3 id="download-the-code">Download the code</h3>
 
-<p><a href="/downloads/digitRecognition.zip">Click here</a>
+<p><a href="http://bit.ly/1NXUZAY">Click here</a>
  </p>
 
   </article>
