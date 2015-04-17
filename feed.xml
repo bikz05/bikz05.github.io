@@ -6,8 +6,8 @@
 </description>
     <link>http://bikz05.github.io/</link>
     <atom:link href="http://bikz05.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 17 Apr 2015 12:27:01 +0530</pubDate>
-    <lastBuildDate>Fri, 17 Apr 2015 12:27:01 +0530</lastBuildDate>
+    <pubDate>Fri, 17 Apr 2015 20:51:06 +0530</pubDate>
+    <lastBuildDate>Fri, 17 Apr 2015 20:51:06 +0530</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -251,6 +251,12 @@
         
         <category>python</category>
         
+        <category>sklearn</category>
+        
+        <category>opencv</category>
+        
+        <category>digit recognition</category>
+        
       </item>
     
       <item>
@@ -326,9 +332,11 @@
         <category>thresholding</category>
         
         
+        <category>python</category>
+        
         <category>opencv</category>
         
-        <category>python</category>
+        <category>color spaces</category>
         
       </item>
     
@@ -549,7 +557,13 @@ Out of the 11 images for each individual (12 for the first individual), we will
         <category>Yale Face Database</category>
         
         
+        <category>python</category>
+        
         <category>opencv</category>
+        
+        <category>face recognition</category>
+        
+        <category>face detection</category>
         
       </item>
     
@@ -573,6 +587,14 @@ Out of the 11 images for each individual (12 for the first individual), we will
         <link>http://bikz05.github.io/2015/01/24/setting-up-opencv-library-in-eclipse-for-android-development.html</link>
         <guid isPermaLink="true">http://bikz05.github.io/2015/01/24/setting-up-opencv-library-in-eclipse-for-android-development.html</guid>
         
+        
+        <category>android</category>
+        
+        <category>opencv</category>
+        
+        <category>java</category>
+        
+        <category>eclipse</category>
         
       </item>
     
@@ -720,6 +742,12 @@ Out of the 11 images for each individual (12 for the first individual), we will
         
         <category>python</category>
         
+        <category>opencv</category>
+        
+        <category>adaptive threshold</category>
+        
+        <category>thresholding</category>
+        
       </item>
     
       <item>
@@ -844,6 +872,10 @@ MAW. H‘ .9“ Vmczwr Snuuus-rr&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
         
         <category>python</category>
         
+        <category>ocr</category>
+        
+        <category>tesseract</category>
+        
       </item>
     
       <item>
@@ -926,6 +958,8 @@ sudo pip install colormath&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
         
         <category>python</category>
         
+        <category>color difference</category>
+        
       </item>
     
       <item>
@@ -1006,7 +1040,11 @@ sudo pip install colormath&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
         <category>python</category>
         
         
+        <category>python</category>
+        
         <category>opencv</category>
+        
+        <category>keypoints</category>
         
       </item>
     
@@ -1114,6 +1152,10 @@ sudo pip install colormath&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
         <category>timeit</category>
         
         
+        <category>python</category>
+        
+        <category>timeit</category>
+        
       </item>
     
       <item>
@@ -1192,10 +1234,18 @@ sudo pip install colormath&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
         <link>http://bikz05.github.io/2015/01/16/setting-up-flask-in-ubuntu-14-04-in-virtual-environment.html</link>
         <guid isPermaLink="true">http://bikz05.github.io/2015/01/16/setting-up-flask-in-ubuntu-14-04-in-virtual-environment.html</guid>
         
+        <category>flask</category>
+        
         <category>python</category>
         
+        <category>ubuntu</category>
+        
+        
+        <category>python</category>
         
         <category>flask</category>
+        
+        <category>ubuntu</category>
         
       </item>
     
