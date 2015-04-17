@@ -320,6 +320,37 @@ pre {
       .post-content h4 {
         font-size: 18px; } }
 
+.bikzclick {
+  text-align: center;
+  padding: 7px 10px;
+  text-transform: uppercase;
+  margin: 10px 5px 10px 0px;
+  display: inline-block;
+  font-size: 0.9em;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+  border: 1px solid blue;
+  background-size: initial;
+  background-origin: initial;
+  background-clip: initial; }
+
+.bikzclick_tag {
+  text-align: center;
+  text-transform: uppercase;
+  display: inline-block;
+  color: white;
+  padding: 1px 10px;
+  margin: 10px 5px 10px 0px;
+  font-size: 0.9em;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+  background-color: #2a7ae2;
+  background-size: initial;
+  background-origin: initial;
+  background-clip: initial; }
+
 /**
  * Syntax highlighting styles
  */
