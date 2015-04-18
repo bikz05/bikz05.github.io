@@ -6,8 +6,8 @@
 </description>
     <link>http://bikz05.github.io/</link>
     <atom:link href="http://bikz05.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 18 Apr 2015 16:03:38 +0530</pubDate>
-    <lastBuildDate>Sat, 18 Apr 2015 16:03:38 +0530</lastBuildDate>
+    <pubDate>Sat, 18 Apr 2015 18:28:50 +0530</pubDate>
+    <lastBuildDate>Sat, 18 Apr 2015 18:28:50 +0530</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -251,13 +251,13 @@
         <guid isPermaLink="true">http://bikz05.github.io/2015/02/24/handwritten-digit-recognition-using-opencv-sklearn-and-python.html</guid>
         
         
-        <category>python</category>
-        
-        <category>sklearn</category>
+        <category>digit recognition</category>
         
         <category>opencv</category>
         
-        <category>digit recognition</category>
+        <category>python</category>
+        
+        <category>sklearn</category>
         
       </item>
     
@@ -334,11 +334,11 @@
         <category>thresholding</category>
         
         
-        <category>python</category>
+        <category>color spaces</category>
         
         <category>opencv</category>
         
-        <category>color spaces</category>
+        <category>python</category>
         
       </item>
     
@@ -561,13 +561,13 @@ Out of the 11 images for each individual (12 for the first individual), we will
         <category>Yale Face Database</category>
         
         
-        <category>python</category>
-        
-        <category>opencv</category>
+        <category>face detection</category>
         
         <category>face recognition</category>
         
-        <category>face detection</category>
+        <category>opencv</category>
+        
+        <category>python</category>
         
       </item>
     
@@ -594,11 +594,11 @@ Out of the 11 images for each individual (12 for the first individual), we will
         
         <category>android</category>
         
-        <category>opencv</category>
+        <category>eclipse</category>
         
         <category>java</category>
         
-        <category>eclipse</category>
+        <category>opencv</category>
         
       </item>
     
@@ -744,11 +744,11 @@ Out of the 11 images for each individual (12 for the first individual), we will
         <category>threshold</category>
         
         
-        <category>python</category>
+        <category>adaptive threshold</category>
         
         <category>opencv</category>
         
-        <category>adaptive threshold</category>
+        <category>python</category>
         
         <category>thresholding</category>
         
@@ -874,9 +874,9 @@ MAW. H‘ .9“ Vmczwr Snuuus-rr&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
         <category>tesseract</category>
         
         
-        <category>python</category>
-        
         <category>ocr</category>
+        
+        <category>python</category>
         
         <category>tesseract</category>
         
@@ -960,9 +960,9 @@ sudo pip install colormath&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
         <category>python</category>
         
         
-        <category>python</category>
-        
         <category>color difference</category>
+        
+        <category>python</category>
         
       </item>
     
@@ -1044,11 +1044,11 @@ sudo pip install colormath&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
         <category>python</category>
         
         
-        <category>python</category>
+        <category>keypoints</category>
         
         <category>opencv</category>
         
-        <category>keypoints</category>
+        <category>python</category>
         
       </item>
     
@@ -1245,9 +1245,9 @@ sudo pip install colormath&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
         <category>ubuntu</category>
         
         
-        <category>python</category>
-        
         <category>flask</category>
+        
+        <category>python</category>
         
         <category>ubuntu</category>
         
