@@ -339,13 +339,13 @@ pre {
   text-align: center;
   text-transform: uppercase;
   display: inline-block;
-  color: white;
+  color: black;
   padding: 1px 10px;
   font-size: 0.9em;
   font-weight: bold;
   text-decoration: none;
   border-radius: 5px;
-  background-color: #2a7ae2;
+  background-color: #eef;
   background-size: initial;
   background-origin: initial;
   background-clip: initial; }
