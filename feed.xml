@@ -6,8 +6,8 @@
 </description>
     <link>http://bikz05.github.io/</link>
     <atom:link href="http://bikz05.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 16 May 2015 17:47:19 +0530</pubDate>
-    <lastBuildDate>Sat, 16 May 2015 17:47:19 +0530</lastBuildDate>
+    <pubDate>Sat, 16 May 2015 17:55:59 +0530</pubDate>
+    <lastBuildDate>Sat, 16 May 2015 17:55:59 +0530</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -23,7 +23,7 @@
 
 &lt;p&gt;&lt;em&gt;But how is the LBP values calculated?&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;To calculate the LBP value for a pixel in the grayscale image, we compare the central pixel value with the value of the neighbouring pixel values. We can start from any neighbouring pixel and then we can transverse either in clockwise or anti-clockwise direction but we must use the same order for all the pixels. Since there are 8 neighbouring pixels – for each pixel, we will perform 8 comparisons. The results of the comparisons are stored in a 8-bit binary array.&lt;/p&gt;
+&lt;p&gt;To calculate the LBP value for a pixel in the grayscale image, we compare the central pixel value with the neighbouring pixel values. We can start from any neighbouring pixel and then we can transverse either in clockwise or anti-clockwise direction but we must use the same order for all the pixels. Since there are 8 neighbouring pixels – for each pixel, we will perform 8 comparisons. The results of the comparisons are stored in a 8-bit binary array.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;If the current pixel value is greater or equal to the neighbouring pixel value, the corresponding bit in the binary array is set to 1 else if the current pixel value is less than the neighbouring pixel value, the corresponding bit in the binary array is set to 0.&lt;/strong&gt;&lt;/p&gt;
 
