@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-58227951-1', 'http://hanzratech.in');
+  ga('send', 'pageview');
+
+</script>
+
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Adaptive Thresholding</title>
+    <meta name="description" content="Computer Vision and Programming blog
+">
+
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="canonical" href="http://bikz05.github.io/2015/01/22/adaptive-thresholding.html">
+</head>
+
+
+
+  <body>
+    
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <!-- <a class="site-title" href="/">Hanzra Tech</a> -->
+    
+    <a class="site-title" href="/"><img src="/assets/logo/hanzratech-logo.png" alt="Hanzra Tech" style="width:144px;height:50px"></a>
+
+    <nav class="site-nav">
+      <a href="#" class="menu-icon">
+        <svg viewBox="0 0 18 15">
+          <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+          <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+          <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+        </svg>
+      </a>
+
+      <div class="trigger">
+        
+	  
+	  <a class="page-link" href="/about/">About</a>
+	  
+	
+	  
+	  <a class="page-link" href="/contact/">Contact</a>
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <div class="page-content">
+      <div class="wrapper">
+        <div class="post">
+
+  <header class="post-header">
+    <script type="text/javascript">var switchTo5x=true;</script>
+<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+<script type="text/javascript">stLight.options({publisher: "e95f9855-8c25-452f-a5aa-52401715f9e1", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+
+    <h1 class="post-title">Adaptive Thresholding</h1>
+    <p class="post-meta">Jan 22, 2015 • Bikramjot Singh Hanzra
+<br>Posted under 
+<!--  
+ -->
+<span class="bikzclick_tag"><a href="/categories/adaptive-threshold">adaptive threshold</a></span>
+<!--  
+ -->
+<span class="bikzclick_tag"><a href="/categories/opencv">opencv</a></span>
+<!--  
+ -->
+<span class="bikzclick_tag"><a href="/categories/python">python</a></span>
+<!--  
+ -->
+<span class="bikzclick_tag"><a href="/categories/thresholding">thresholding</a></span> 
+</p>
+  </header>
+
+  <article class="post-content">
+    <p>One of the most commonly used operation in image processing is thresholding a grayscale image with a fixed value to get a binary image. For example, anything that is greater than 127 in the grayscale, can be set to 1 in the binary image and anything that is less than or equal to 127 in the grayscale image can be set to 0 in the binary image. This process is called <strong>fixed thresholding</strong> as our threshold value is set to 127.</p>
+
+<p>In <strong>adaptive threshold</strong> unlike fixed threshold, the threshold value at each pixel location depends on the neighboring pixel intensities. To calculate the threshold <em>T(x, y)</em> i.e. the threshold value at pixel location <em>(x, y)</em> in the image, we perform the following steps -</p>
+
+<ol>
+  <li>A bxb region around the pixel location is selected. b is selected by the user.</li>
+  <li>The next step is to calculate the weighted average of the bxb region. OpenCV provides 2 methods to calculate this weighted average. We can either use the average (mean) of all the pixel location that lie in the bxb box or we can use a Gaussian weighted average of the pixel values that lie in the box. In the latter case, the pixel values that are near to the center of the box, will have higher weight. We will represent this value by <em>WA(x, y)</em>.</li>
+  <li>The next step is to find the Threshold value <em>T(x, y)</em> by subtracting a constant parameter, let’s name it param1 from the weighted average value <em>WA(x, y)</em> calculated for each pixel in the previous step. The threshold valueT(x, y) at pixel location <em>(x, y)</em> is then calculated using the formula given below -</li>
+</ol>
+
+<p><em><center>T(x, y) = WA(x, y) - param1</center></em></p>
+
+<p>This is how we get our threshold value. Now, it time to program both the fixed and adaptive thresholding in OpenCV. I will be using the IPython environment for this purpose. So, let’s get started.</p>
+
+<h2 id="import-the-required-modules">Import the required modules</h2>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">%</span><span class="n">pylab</span> <span class="n">inline</span>
+<span class="kn">import</span> <span class="nn">cv2</span></code></pre></div>
+
+<h2 id="read-the-input-image">Read the input image</h2>
+
+<p>First of all read the image, then convert the image to grayscale and finally display the image.</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">im</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="s">&quot;/home/bikz05/Desktop/image.jpg&quot;</span><span class="p">)</span>
+<span class="n">im_gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2GRAY</span><span class="p">)</span>
+<span class="n">axis</span><span class="p">(</span><span class="s">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&quot;Input Image&quot;</span><span class="p">)</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">im_gray</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span></code></pre></div>
+
+<figure id="figure-1"><a href="/figures/original-thresholding.png"><img src="/figures/original-thresholding.png" alt="Original Image" /></a><figcaption>Figure 1: Original Image [<a href="/figures/original-thresholding.png">PNG</a>]</figcaption></figure>
+
+<h2 id="fixed-thresholding">Fixed thresholding</h2>
+
+<p>We will first perform fixed thresholding on the input image. Fixed Thresholding is done using the function <code>cv2.threshold</code>. The signature of <code>cv2.threshold</code> is -</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">thresh</span><span class="p">,</span> <span class="n">maxval</span><span class="p">,</span> <span class="nb">type</span><span class="p">[,</span> <span class="n">dst</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">retval</span><span class="p">,</span> <span class="n">dst</span></code></pre></div>
+
+<p>Here,</p>
+
+<ol>
+  <li><code>src</code> is the input image.</li>
+  <li><code>thresh</code> is the threshold value.</li>
+  <li><code>maxval</code> is the maximum value that can be assigned to the output.</li>
+  <li><code>type</code> is the type of thresholding.</li>
+  <li><code>dst</code> is the destination image</li>
+</ol>
+
+<p>In the example, the threshold value is set to 50 and the threshold type is <code>cv2.THRESH_BINARY</code> i.e. any value that is greater than 50 is set to 255 and any value less than 55 is set to 0.</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">retval</span><span class="p">,</span> <span class="n">im_at_fixed</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">im_gray</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)</span>
+<span class="n">axis</span><span class="p">(</span><span class="s">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&quot;Fixed Thresholding&quot;</span><span class="p">)</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">im_at_fixed</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span></code></pre></div>
+
+<figure id="figure-2"><a href="/figures/fixed-thresholding-1.png"><img src="/figures/fixed-thresholding-1.png" alt="Results after fixed thresholding" /></a><figcaption>Figure 2: Results after fixed thresholding [<a href="/figures/fixed-thresholding-1.png">PNG</a>]</figcaption></figure>
+
+<h2 id="adaptive-thresholding-with-mean-weighted-average">Adaptive Thresholding with mean weighted average</h2>
+
+<p>Adaptive Thresholding with mean weighted average is done using the function <code>cv2.adaptiveThreshold</code>. The signature of the function is -</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cv2</span><span class="o">.</span><span class="n">adaptiveThreshold</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">maxValue</span><span class="p">,</span> <span class="n">adaptiveMethod</span><span class="p">,</span> <span class="n">thresholdType</span><span class="p">,</span> <span class="n">blockSize</span><span class="p">,</span> <span class="n">C</span><span class="p">[,</span> <span class="n">dst</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">dst</span></code></pre></div>
+
+<p>Here,</p>
+
+<ol>
+  <li><code>src</code>  is the input image.</li>
+  <li><code>maxval</code> is the maximum value that can be assigned to the output.</li>
+  <li><code>adaptiveMethod</code> is set to <code>cv2.ADAPTIVE_THRESH_MEAN_C</code>  for mean weighted average and to <code>cv2.ADAPTIVE_THRESH_GAUSSIAN_C</code> for gaussian weighted average.</li>
+  <li><code>thresholdType</code> - the type of thresholding</li>
+  <li><code>blockSize</code>  - value of <code>b</code></li>
+  <li><code>C</code> is the constant that is subtracted from the threshold value calculated for each pixel</li>
+  <li><code>dst</code> is the destination image</li>
+</ol>
+
+<p>For the example, the value of <code>b</code> is 5 and the constant value is set to 10.</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">im_at_mean</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">adaptiveThreshold</span><span class="p">(</span><span class="n">im_gray</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">ADAPTIVE_THRESH_MEAN_C</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">axis</span><span class="p">(</span><span class="s">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&quot;Adaptive Thresholding with mean weighted average&quot;</span><span class="p">)</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">im_at_mean</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span></code></pre></div>
+
+<figure id="figure-3"><a href="/figures/adaptive-thresholding-1.png"><img src="/figures/adaptive-thresholding-1.png" alt="Adaptive Thresholding with mean weighted average" /></a><figcaption>Figure 3: Adaptive Thresholding with mean weighted average [<a href="/figures/adaptive-thresholding-1.png">PNG</a>]</figcaption></figure>
+
+<h2 id="adaptive-thresholding-with-gaussian-weighted-average">Adaptive Thresholding with gaussian weighted average</h2>
+
+<p>Adaptive Thresholding with gaussian weighted average is done using the function <code>cv2.adaptiveThreshold</code>. The signature of the function is -</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cv2</span><span class="o">.</span><span class="n">adaptiveThreshold</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">maxValue</span><span class="p">,</span> <span class="n">adaptiveMethod</span><span class="p">,</span> <span class="n">thresholdType</span><span class="p">,</span> <span class="n">blockSize</span><span class="p">,</span> <span class="n">C</span><span class="p">[,</span> <span class="n">dst</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">dst</span></code></pre></div>
+
+<p>Here,</p>
+
+<ol>
+  <li><code>src</code> is the input image.</li>
+  <li><code>maxval</code> is the maximum value that can be assigned to the output.</li>
+  <li><code>adaptiveMethod</code> is set to <code>cv2.ADAPTIVE_THRESH_MEAN_C</code>  for mean weighted average and to <code>cv2.ADAPTIVE_THRESH_GAUSSIAN_C</code>  for gaussian weighted average.</li>
+  <li><code>thresholdType</code> - the type of thresholding</li>
+  <li><code>blockSize</code>  is the value of <code>b</code></li>
+  <li><code>C</code> is the constant that is subtracted from the threshold value calculated for each pixel</li>
+  <li><code>dst</code>  is the destination image</li>
+</ol>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">im_at_gauss</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">adaptiveThreshold</span><span class="p">(</span><span class="n">im_gray</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">ADAPTIVE_THRESH_GAUSSIAN_C</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">axis</span><span class="p">(</span><span class="s">&quot;off&quot;</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s">&quot;Adaptive Thresholding with gaussian weighted average&quot;</span><span class="p">)</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">im_at_gauss</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s">&#39;gray&#39;</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span></code></pre></div>
+
+<figure id="figure-4"><a href="/figures/adaptive-thresholding-2.png"><img src="/figures/adaptive-thresholding-2.png" alt="Adaptive Thresholding with gaussian weighted average" /></a><figcaption>Figure 4: Adaptive Thresholding with gaussian weighted average [<a href="/figures/adaptive-thresholding-2.png">PNG</a>]</figcaption></figure>
+
+<p>That’s it! Clearly results are better with adaptive thresholding as compared to fixed thresholding.</p>
+
+<h3 id="additional-resources">ADDITIONAL RESOURCES</h3>
+
+<ul>
+  <li><a href="https://cloud.sagemath.com/projects/bd472b44-f23d-4c37-85e2-627dfeed6883/files/">Copy the SageMath Project</a></li>
+  <li><a href="http://nbviewer.ipython.org/gist/bikz05/323dc9e1167689582626">View the Notebook using NB Viewer</a> {GIST DOWNLOAD AVAILABLE HERE]</li>
+</ul>
+
+  </article>
+  
+  <center>
+<span class='st__large' displayText=''></span>
+<span class='st_facebook_large' displayText='Facebook'></span>
+<span class='st_googleplus_large' displayText='Google +'></span>
+<span class='st_twitter_large' displayText='Tweet'></span>
+<span class='st_evernote_large' displayText='Evernote'></span>
+<span class='st_tumblr_large' displayText='Tumblr'></span>
+<span class='st_baidu_large' displayText='Baidu'></span>
+<span class='st_linkedin_large' displayText='LinkedIn'></span>
+<span class='st_pinterest_large' displayText='Pinterest'></span>
+<span class='st_email_large' displayText='Email'></span>
+</center>
+
+
+  <div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'hanzratech'; // required: replace example with your forum shortname
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+</div>
+
+      </div>
+    </div>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <!-- <h2 class="footer-heading">Hanzra Tech</h2> -->
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+	<h3>Hanzra Tech</h3>
+        <ul class="contact-list">
+	  <li>Bikramjot Singh Hanzra</li>
+          <li><a href="mailto:bikz.05@gmail.com, bhanzra@andrew.cmu.edu">bikz.05@gmail.com, bhanzra@andrew.cmu.edu</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-2" style="text-align: center">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/bikz05">
+              <span class="icon  icon--github">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"/>
+                </svg>
+              </span>
+
+              <span class="username">bikz05</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/bikz05">
+              <span class="icon  icon--twitter">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"/>
+                </svg>
+              </span>
+
+              <span class="username">bikz05</span>
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="footer-col  footer-col-3">
+	<h3>Subscribe to our mailing list</h3>
+	<!-- Begin MailChimp Signup Form -->
+<link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+	#mc_embed_signup{clear:left; font:14px Helvetica,Arial,sans-serif; }
+	/* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
+	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
+</style>
+<div id="mc_embed_signup">
+<form action="//hanzratech.us10.list-manage.com/subscribe/post?u=a52f12efb0d1b0d41d887206e&amp;id=647ba168eb" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+	<!-- <h2>Subscribe to our mailing list</h2> -->
+<!-- <div class="indicates-required"><span class="asterisk">*</span> indicates required</div> -->
+<div class="mc-field-group">
+	<label for="mce-EMAIL">Email Address  <span class="asterisk">*</span>
+</label>
+	<input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+</div>
+	<div id="mce-responses" class="clear">
+		<div class="response" id="mce-error-response" style="display:none"></div>
+		<div class="response" id="mce-success-response" style="display:none"></div>
+	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;"><input type="text" name="b_a52f12efb0d1b0d41d887206e_647ba168eb" tabindex="-1" value=""></div>
+    <div class="clear" ><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+<script type='text/javascript' src='//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js'></script><script type='text/javascript'>(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';}(jQuery));var $mcj = jQuery.noConflict(true);</script>
+<!--End mc_embed_signup-->
+
+        <!-- <p class="text">Computer Vision and Programming blog
+</p> -->
+      </div>
+    </div>
+
+    <div style="text-align: center">
+    Computer Vision and Programming Blog <br>
+    Copyright &#169 2014 All rights reserved <a href="/">Hanzra Tech</a>
+    </div>
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
