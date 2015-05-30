@@ -6,8 +6,8 @@
 </description>
     <link>http://bikz05.github.io/</link>
     <atom:link href="http://bikz05.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 30 May 2015 20:04:57 +0530</pubDate>
-    <lastBuildDate>Sat, 30 May 2015 20:04:57 +0530</lastBuildDate>
+    <pubDate>Sat, 30 May 2015 20:11:46 +0530</pubDate>
+    <lastBuildDate>Sat, 30 May 2015 20:11:46 +0530</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -757,7 +757,7 @@ Out of the 11 images for each individual (12 for the first individual), we will
 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;recognizer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;createLBPHFaceRecognizer&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt; - &lt;em&gt;As an aside, if you are in interested knowing how Local Binary Patterns Histograms are created and how they can also be used for texture matching, I would recommend you to go through my blog post on &lt;a href=&quot;/2015/05/30/local-binary-patterns.html&quot;&gt;Texture Matching using Local Binary Patterns (LBP), OpenCV, scikit-learn and Python&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;NOTE&lt;/strong&gt; - &lt;em&gt;As an aside, if you are interested in knowing how Local Binary Patterns Histograms are created and how they can also be used for texture matching, I would recommend you to go through my blog post on &lt;a href=&quot;/2015/05/30/local-binary-patterns.html&quot;&gt;Texture Matching using Local Binary Patterns (LBP), OpenCV, scikit-learn and Python&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
 
 &lt;h4 id=&quot;create-the-function-toprepare-the-training-set&quot;&gt;Create the function to prepare the training set&lt;/h4&gt;
 
