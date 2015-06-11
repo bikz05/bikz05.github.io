@@ -195,7 +195,7 @@ font-family: 'Roboto', sans-serif;
 <h1 id="lbp-descriptor">LBP Descriptor</h1>
 
 <p>Let’s first discuss how to calculate the LBP Descriptor. Firstly, we convert the input color image to grayscale, since LBP works on grayscale images. For each pixel in the grayscale image, a neighbourhood is selected around the current pixel and then we calculate the LBP value for the pixel using the neighbourhood. After calculating the LBP value of the current pixel, we update the corresponding pixel location in the LBP mask (It is of same height and width as the input image.) with the LBP value calculated as shown below. In the image, we have 8 neighbouring pixels.</p>
-<figure id="figure-1"><a href="/figures/2015-05-30-local-binary-patterns/lbp-2.png"><img src="/figures/2015-05-30-local-binary-patterns/lbp-2.png" alt="Grayscale Image to LBP Mask" /></a><figcaption>Figure 1: Grayscale Image to LBP Mask [<a href="/figures/2015-05-30-local-binary-patterns/lbp-2.png">PNG</a>]</figcaption></figure>
+<figure id="figure-1"><a href="/figures/2015-05-30-local-binary-patterns/lbp-2.png"><img src="/figures/2015-05-30-local-binary-patterns/lbp-2.png" alt="Grayscale Image to LBP Mask *" /></a><figcaption>Figure 1: Grayscale Image to LBP Mask * [<a href="/figures/2015-05-30-local-binary-patterns/lbp-2.png">PNG</a>]</figcaption></figure>
 
 <p><em>But how is the LBP values calculated?</em></p>
 
@@ -205,7 +205,7 @@ font-family: 'Roboto', sans-serif;
 
 <p>The whole process is shown in the image below (Figure 2). The current (central) pixel has value 7. We start comparing from the neighbouring pixel where the label 0. The value of the neighbouring pixel with label 0 is 2. Since it is less than the current pixel value which is 7, we reset the 0th bit location in the 8 bit binary array to 0. We then iterate in the counter-clockwise direction. The next label location 1 have value 7 which is equal to the current pixel value, so we set the 1st bit location in the 8 bit binary to 1. We then continue to move to the next neighbouring pixel until we reach the 8th neighbouring pixel. Then the 8-bit binary pattern is converted to a decimal number and the decimal number is then stored in the corresponding pixel location in the LBP mask.</p>
 
-<figure id="figure-2"><a href="/figures/2015-05-30-local-binary-patterns/lbp-1.png"><img src="/figures/2015-05-30-local-binary-patterns/lbp-1.png" alt="Calculation of LBP values" /></a><figcaption>Figure 2: Calculation of LBP values [<a href="/figures/2015-05-30-local-binary-patterns/lbp-1.png">PNG</a>]</figcaption></figure>
+<figure id="figure-2"><a href="/figures/2015-05-30-local-binary-patterns/lbp-1.png"><img src="/figures/2015-05-30-local-binary-patterns/lbp-1.png" alt="Calculation of LBP values *" /></a><figcaption>Figure 2: Calculation of LBP values * [<a href="/figures/2015-05-30-local-binary-patterns/lbp-1.png">PNG</a>]</figcaption></figure>
 
 <p>Once we have calculated the LBP Mask, we calculate the LBP histogram. The LBP mask values range from 0 to 255, so our LBP Descriptor will be of size 1x256. We then normalize the LBP histogram. The image below shows the scheme of the algorithm -</p>
 
@@ -216,15 +216,17 @@ font-family: 'Roboto', sans-serif;
   <li>Calculate the LBP Histogram and normalize it.</li>
 </ol>
 
-<figure id="figure-3"><a href="/figures/2015-05-30-local-binary-patterns/lbp-3.png"><img src="/figures/2015-05-30-local-binary-patterns/lbp-3.png" alt="Color Image -&gt; Grayscale Image -&gt; LBP Mask -&gt; Normalized LBP Histogram" /></a><figcaption>Figure 3: Color Image -&gt; Grayscale Image -&gt; LBP Mask -&gt; Normalized LBP Histogram [<a href="/figures/2015-05-30-local-binary-patterns/lbp-3.png">PNG</a>]</figcaption></figure>
+<figure id="figure-3"><a href="/figures/2015-05-30-local-binary-patterns/lbp-3.png"><img src="/figures/2015-05-30-local-binary-patterns/lbp-3.png" alt="Color Image -&gt; Grayscale Image -&gt; LBP Mask -&gt; Normalized LBP Histogram *" /></a><figcaption>Figure 3: Color Image -&gt; Grayscale Image -&gt; LBP Mask -&gt; Normalized LBP Histogram * [<a href="/figures/2015-05-30-local-binary-patterns/lbp-3.png">PNG</a>]</figcaption></figure>
 
 <p>One advantage of LBP is that it is illumination and translation invariant. We have selected a 8 point neighbourhood, but most implementations use a circular neighbourhood as shown below. In the code, we will use a circular neighbourhood.</p>
 
-<figure id="figure-4"><a href="/figures/2015-05-30-local-binary-patterns/lbp-4.png"><img src="/figures/2015-05-30-local-binary-patterns/lbp-4.png" alt="Circular Neighbourhood" /></a><figcaption>Figure 4: Circular Neighbourhood [<a href="/figures/2015-05-30-local-binary-patterns/lbp-4.png">PNG</a>]</figcaption></figure>
+<figure id="figure-4"><a href="/figures/2015-05-30-local-binary-patterns/lbp-4.png"><img src="/figures/2015-05-30-local-binary-patterns/lbp-4.png" alt="Circular Neighbourhood *" /></a><figcaption>Figure 4: Circular Neighbourhood * [<a href="/figures/2015-05-30-local-binary-patterns/lbp-4.png">PNG</a>]</figcaption></figure>
 
 <p>The original LBP algorithm has been further optimised to give better results. One such implementation is the <strong>Uniform LBP</strong>. In the code, we will use Uniform LBP.</p>
 
 <p><em>That’s LBP for you</em>, now let’s get started with the programming part <img class="emoji" title=":smile:" alt=":smile:" src="https://assets.github.com/images/icons/emoji/unicode/1f604.png" height="20" width="20" align="absmiddle" /></p>
+
+<p><em>* Image taken from <a href="https://class.coursera.org/deteccionobjetos-001/">Detección de objetos</a> course by Antonio López Peña, Ernest Valveny, Maria Vanrell (UAB) on Coursera.</em></p>
 
 <h1 id="import-the-required-modules">Import the required modules</h1>
 
