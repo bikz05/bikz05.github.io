@@ -161,8 +161,10 @@ font-family: 'Roboto', sans-serif;
     <div class="page-content">
       <div class="wrapper">
         <div class="post">
-
   <header class="post-header">
+<script type="text/javascript"
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
     <script type="text/javascript">var switchTo5x=true;</script>
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript">stLight.options({publisher: "e95f9855-8c25-452f-a5aa-52401715f9e1", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
@@ -185,8 +187,6 @@ font-family: 'Roboto', sans-serif;
 <p>A naive implementation is to calculate to Euclidean distance (as shown below) between the RGB values of the 2 colors.</p>
 
 <script type="math/tex; mode=display">d = \sqrt{(x_1-x_2)^2 + (y_1-y_2)^2 + (z_1-z_2)^2}</script>
-
-<p><em><center>d = sqrt((x_1-x_2)^2 + (y_1-y_2)^2 + (z_1-z_2)^)</center></em></p>
 
 <p>The 2 colors that have the lowest Euclidean Distance are then selected. But, there is a serous flaw in this assumption. Although RGB values are a convenient way to represent colors in computers, we humans perceive colors in a different way from how colors are represented in the RGB color space. What looks like identical colors to us, might give us a Euclidean distance that is greater than the Euclidean distance of colors that look different to us when comparing in RGB color space.</p>
 
