@@ -18,12 +18,12 @@
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Setting up Flask in Ubuntu 14.04 in Virtual Environment</title>
+    <title>Generating images with Google's "INCEPTIONISM" -- deepdream</title>
     <meta name="description" content="Computer Vision and Programming blog
 ">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://bikz05.github.io/2015/01/16/setting-up-flask-in-ubuntu-14-04-in-virtual-environment.html">
+    <link rel="canonical" href="http://bikz05.github.io/2015/07/03/google-inceptionism.html">
 </head>
 
 
@@ -181,91 +181,112 @@ font-family: 'Roboto', sans-serif;
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript">stLight.options({publisher: "e95f9855-8c25-452f-a5aa-52401715f9e1", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 
-    <h1 class="post-title" style="font-family: 'Indie Flower', cursive;">Setting up Flask in Ubuntu 14.04 in Virtual Environment</h1>
-    <p class="post-meta" style="font-family: 'Roboto', 'sans-serif;'">Jan 16, 2015 • Bikramjot Singh Hanzra
+    <h1 class="post-title" style="font-family: 'Indie Flower', cursive;">Generating images with Google's "INCEPTIONISM" -- deepdream</h1>
+    <p class="post-meta" style="font-family: 'Roboto', 'sans-serif;'">Jul 3, 2015 • Bikramjot Singh Hanzra
 <br>Posted under 
 <!--  
  -->
-<span class="bikzclick_tag"><a href="/categories/flask">flask  </a></span>
+<span class="bikzclick_tag"><a href="/categories/deep-learning">deep learning  </a></span>
 <!--  
  -->
-<span class="bikzclick_tag"><a href="/categories/python">python  </a></span>
+<span class="bikzclick_tag"><a href="/categories/google-research">google research  </a></span>
 <!--  
  -->
-<span class="bikzclick_tag"><a href="/categories/ubuntu">ubuntu  </a></span> 
+<span class="bikzclick_tag"><a href="/categories/ipython">ipython  </a></span>
+<!--  
+ -->
+<span class="bikzclick_tag"><a href="/categories/neural-networks">neural networks  </a></span> 
 </p>
   </header>
 
   <article class="post-content" style="font-family: 'Roboto', sans-serif;">
-    <p>In this tutorial, we will install flask in a virtual environment. There are a number of advantages of working in a virtual environment -</p>
+    <p>A couple of weeks ago Google Research blogged about a visualization technique which they named as “INCEPTIONISM” that could be used to make a pre-trained neural network generate intriguing picture. Alternatively, this technique can also be used to understand how well the neural network is learning at each layer. To get a high-level idea of what Google did, I recommend reading the original blog post <a href="http://googleresearch.blogspot.in/2015/06/inceptionism-going-deeper-into-neural.html">Inceptionism: Going Deeper into Neural Networks</a>.</p>
+
+<p>This blog post got a lot of publicity in both the Computer Vision community and print media. So a yesterday, Google announced in <a href="DeepDream - a code example for visualizing Neural Networks">this</a> blog post that it had open sourced the code. The code is available on <a href="https://github.com/google/deepdream">GitHub</a>. To clone the repository, enter the below command in the terminal.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/google/deepdream.git</code></pre></div>
+
+<p>In order to run the code, there are a few dependencies -</p>
 
 <ol>
-  <li>Firstly, we can set different configurations for each virtual environment. The packages installed in the virtual environment are not accessible outside it. It guarantees there are no conflicts with the global interpreter.</li>
-  <li>To install new packages, virtual environments don’t require root privileges.</li>
+  <li>Scientific Python Stack – <code>IPython Notebook</code>, <code>numpy</code>, <code>scipy</code>, <code>matplotlib</code>.</li>
+  <li><a href="http://caffe.berkeleyvision.org/">Caffe</a></li>
 </ol>
 
-<p>Let’s start by creating a virtual environment -</p>
+<p>You will also need to download the GoogLeNet model.</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cd</span> <span class="o">~</span>
-<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">virtualenv</span> 
-<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span></code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">wget http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel
+mv bvlc_googlenet.caffemodel &lt;path to Caffe installation&gt;/caffe/models/bvlc_googlenet/</code></pre></div>
 
-<p>To check if <code>virtualenv</code> is correctly installed, type -</p>
+<p>Now let’s take a look at some of the mind blowing results!!</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">virtualenv</span> <span class="o">--</span><span class="n">version</span></code></pre></div>
+<h3 id="nsa-headquarters">NSA Headquarters</h3>
 
-<p>At the time this post was written, the output was -</p>
+<center>
+<blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/hashtag/deepdream?src=hash">#deepdream</a> NSA Headquarters. We all knew. <a href="http://t.co/K7sTwERQCM">pic.twitter.com/K7sTwERQCM</a></p>&mdash; samim (@samim) <a href="https://twitter.com/samim/status/616642643083309056">July 2, 2015</a></blockquote>
+<script async="" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</center>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="mf">1.11</span><span class="o">.</span><span class="mi">4</span></code></pre></div>
+<h3 id="nebula">NEBULA</h3>
 
-<p>Now let’s make a directory <code>flask-application</code> where we will store our project.</p>
+<center>
+<blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">A rare photography of The Puppyslug Nebula from the Hubble Telescope.&#10;<a href="https://twitter.com/hashtag/deepdream?src=hash">#deepdream</a> <a href="http://t.co/YjslsSlYAo">pic.twitter.com/YjslsSlYAo</a></p>&mdash; Devine Lu Linvega (@aliceffekt) <a href="https://twitter.com/aliceffekt/status/616632837274513408">July 2, 2015</a></blockquote>
+<script async="" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</center>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">mkdir</span> <span class="n">flask</span><span class="o">-</span><span class="n">application</span>
-<span class="n">cd</span> <span class="n">flask</span><span class="o">-</span><span class="n">application</span></code></pre></div>
+<p>Since the neural network was trained mostly with images of animals, in most of the images you will see animals beings rendered in the images with dogs outnumbering any other creature on the planet. So, I decided to render crocodiles and was lucky to find some!!</p>
 
-<p>It time to create to virtual environment <code>flask-env</code>, where we will install flask.</p>
+<h3 id="crocodiles">CROCODILES</h3>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">virtualenv</span> <span class="n">flask</span><span class="o">-</span><span class="n">env</span></code></pre></div>
+<center>
+<blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr">Tired of seeing cats and dogs, here are crocodiles. <a href="https://twitter.com/hashtag/deepdream?src=hash">#deepdream</a> <a href="http://t.co/LUEwIQrvQc">pic.twitter.com/LUEwIQrvQc</a></p>&mdash; Bikramjot S Hanzra (@bikz05) <a href="https://twitter.com/bikz05/status/616700450214055936">July 2, 2015</a></blockquote>
+<script async="" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</center>
 
-<p>You will see the following output on the terminal -</p>
+<h3 id="taj-mahal-inceptionism">TAJ MAHAL INCEPTIONISM</h3>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">New</span> <span class="n">python</span> <span class="n">executable</span> <span class="ow">in</span> <span class="n">flask</span><span class="o">-</span><span class="n">env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span>
-<span class="n">Installing</span> <span class="n">setuptools</span><span class="p">,</span> <span class="n">pip</span><span class="o">...</span><span class="n">done</span><span class="o">.</span></code></pre></div>
+<p>I also created a ~ 66 frame TAJ MAHAL INCEPTIONISM video (20fps).</p>
 
-<p>We have successfully created our virtual environment, now let’s activate it using the command below -</p>
+<center>
+<blockquote class="twitter-tweet" lang="en"><p lang="tr" dir="ltr">Taj Mahal <a href="https://twitter.com/hashtag/INCEPTIONISM?src=hash">#INCEPTIONISM</a> <a href="https://twitter.com/hashtag/deepdream?src=hash">#deepdream</a> <a href="https://twitter.com/hashtag/deeplearning?src=hash">#deeplearning</a> <a href="https://t.co/7l1FjUPoR6">https://t.co/7l1FjUPoR6</a> via <a href="https://twitter.com/YouTube">@YouTube</a></p>&mdash; Bikramjot S Hanzra (@bikz05) <a href="https://twitter.com/bikz05/status/616967565152104448">July 3, 2015</a></blockquote>
+<script async="" src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</center>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">source</span> <span class="n">flask</span><span class="o">-</span><span class="n">env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span></code></pre></div>
+<p>Here are some of the frames from the video.</p>
 
-<p>You will now notice that on left side of your command prompt, <code>(flask-env)</code> appears. So now, when you install a package, it will only be accessible from the virtual environment. When you exit the virtual environment, you can no longer access any package you install inside the virtual environment. It is time to install flask. We will use pip to install the package -</p>
+<figure id="figure-1"><a href="/figures/2015-07-03-google-inceptionism/0005.jpg"><img src="/figures/2015-07-03-google-inceptionism/0005.jpg" alt="Frame 5 -- TAJ MAHAL INCEPTIONISM" /></a><figcaption>Figure 1: Frame 5 -- TAJ MAHAL INCEPTIONISM [<a href="/figures/2015-07-03-google-inceptionism/0005.jpg">JPG</a>]</figcaption></figure>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">pip</span> <span class="n">install</span> <span class="n">Flask</span></code></pre></div>
+<figure id="figure-2"><a href="/figures/2015-07-03-google-inceptionism/0018.jpg"><img src="/figures/2015-07-03-google-inceptionism/0018.jpg" alt="Frame 18 -- TAJ MAHAL INCEPTIONISM" /></a><figcaption>Figure 2: Frame 18 -- TAJ MAHAL INCEPTIONISM [<a href="/figures/2015-07-03-google-inceptionism/0018.jpg">JPG</a>]</figcaption></figure>
 
-<p>Let’s write a hello.py  script which prints <code>"Hello World!"</code> when we open
-<code>http://127.0.0.1:5000/</code> in the browser -</p>
+<figure id="figure-3"><a href="/figures/2015-07-03-google-inceptionism/0030.jpg"><img src="/figures/2015-07-03-google-inceptionism/0030.jpg" alt="Frame 30 -- TAJ MAHAL INCEPTIONISM" /></a><figcaption>Figure 3: Frame 30 -- TAJ MAHAL INCEPTIONISM [<a href="/figures/2015-07-03-google-inceptionism/0030.jpg">JPG</a>]</figcaption></figure>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<figure id="figure-4"><a href="/figures/2015-07-03-google-inceptionism/0056.jpg"><img src="/figures/2015-07-03-google-inceptionism/0056.jpg" alt="Frame 56 -- TAJ MAHAL INCEPTIONISM" /></a><figcaption>Figure 4: Frame 56 -- TAJ MAHAL INCEPTIONISM [<a href="/figures/2015-07-03-google-inceptionism/0056.jpg">JPG</a>]</figcaption></figure>
 
-<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
+<p>To discover more, use the hashtag <code>#deepdream</code> on Twitter.</p>
 
-<span class="nd">@app.route</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
-<span class="k">return</span> <span class="s">&quot;Hello World!&quot;</span>
+<p>If this wasn’t enough some researchers even released a few projects related to “INCEPTIONISM”. Here are a couple of them.</p>
 
-<span class="k">if</span> <span class="p">(</span><span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">):</span>
-<span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">port</span> <span class="o">=</span> <span class="mi">5000</span><span class="p">)</span>
+<ol>
+  <li><a href="https://github.com/VISIONAI/clouddream">Dockerized deepdream: Generate ConvNet Art in the Cloud</a></li>
+</ol>
 
-<span class="n">Run</span> <span class="n">the</span> <span class="n">python</span> <span class="n">script</span> <span class="n">using</span> <span class="o">-</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/VISIONAI/clouddream.git</code></pre></div>
 
-<span class="n">python</span> <span class="n">hello</span><span class="o">.</span><span class="n">py</span></code></pre></div>
+<blockquote>
+  <p>Let’s make it brain-dead simple to launch your very own deepdreaming server (in the cloud, on an Ubuntu machine, Mac via Docker, and maybe even Windows if you try out Kitematic by Docker)!</p>
+</blockquote>
 
-<p>In the browser, open the url <code>http://127.0.0.1:5000/</code>. The result looks like this -</p>
+<ol>
+  <li><a href="https://github.com/jcjohnson/cnn-vis">cnn-vis</a></li>
+</ol>
 
-<figure id="figure-1"><a href="/figures/helloWorld.png"><img src="/figures/helloWorld.png" alt="Webpage at localhost:5000" /></a><figcaption>Figure 1: Webpage at localhost:5000 [<a href="/figures/helloWorld.png">PNG</a>]</figcaption></figure>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/jcjohnson/cnn-vis.git</code></pre></div>
 
-<p>To deactivate the virtual environment, type the below line in the command prompt -</p>
+<blockquote>
+  <p>Inspired by Google’s recent Inceptionism blog post, cnn-vis is an open-source tool that lets you use convolutional neural networks to generate images.</p>
+</blockquote>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">deactivate</span></code></pre></div>
-
+<p>A lot of people wanted to try the <code>deepdream</code> code, but were unable to setup the environment. As a follow-up, I will soon blog about setting up Caffe on Ubuntu 14.04(CPU) and running the <code>deepdream</code> code.</p>
 
   </article>
   
