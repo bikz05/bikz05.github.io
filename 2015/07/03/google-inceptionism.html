@@ -202,7 +202,7 @@ font-family: 'Roboto', sans-serif;
   <article class="post-content" style="font-family: 'Roboto', sans-serif;">
     <p>A couple of weeks ago Google Research blogged about a visualization technique which they named as “INCEPTIONISM” that could be used to make a pre-trained neural network generate intriguing picture. Alternatively, this technique can also be used to understand how well the neural network is learning at each layer. To get a high-level idea of what Google did, I recommend reading the original blog post <a href="http://googleresearch.blogspot.in/2015/06/inceptionism-going-deeper-into-neural.html">Inceptionism: Going Deeper into Neural Networks</a>.</p>
 
-<p>This blog post got a lot of publicity in both the Computer Vision community and print media. So a yesterday, Google announced in <a href="DeepDream - a code example for visualizing Neural Networks">this</a> blog post that it had open sourced the code. The code is available on <a href="https://github.com/google/deepdream">GitHub</a>. To clone the repository, enter the below command in the terminal.</p>
+<p>This blog post got a lot of publicity in both the Computer Vision community and print media. So yesterday, Google announced in <a href="DeepDream - a code example for visualizing Neural Networks">this</a> blog post that it had open sourced the code. The code is available on <a href="https://github.com/google/deepdream">GitHub</a>. To clone the repository, enter the below command in the terminal.</p>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/google/deepdream.git</code></pre></div>
 
@@ -266,9 +266,7 @@ mv bvlc_googlenet.caffemodel &lt;path to Caffe installation&gt;/caffe/models/bvl
 
 <p>If this wasn’t enough some researchers even released a few projects related to “INCEPTIONISM”. Here are a couple of them.</p>
 
-<ol>
-  <li><a href="https://github.com/VISIONAI/clouddream">Dockerized deepdream: Generate ConvNet Art in the Cloud</a></li>
-</ol>
+<h3 id="dockerized-deepdream-generate-convnet-art-in-the-cloudhttpsgithubcomvisionaiclouddream"><a href="https://github.com/VISIONAI/clouddream">Dockerized deepdream: Generate ConvNet Art in the Cloud</a></h3>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/VISIONAI/clouddream.git</code></pre></div>
 
@@ -276,15 +274,25 @@ mv bvlc_googlenet.caffemodel &lt;path to Caffe installation&gt;/caffe/models/bvl
   <p>Let’s make it brain-dead simple to launch your very own deepdreaming server (in the cloud, on an Ubuntu machine, Mac via Docker, and maybe even Windows if you try out Kitematic by Docker)!</p>
 </blockquote>
 
-<ol>
-  <li><a href="https://github.com/jcjohnson/cnn-vis">cnn-vis</a></li>
-</ol>
+<h3 id="cnn-vishttpsgithubcomjcjohnsoncnn-vis"><a href="https://github.com/jcjohnson/cnn-vis">cnn-vis</a></h3>
 
 <div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/jcjohnson/cnn-vis.git</code></pre></div>
 
 <blockquote>
   <p>Inspired by Google’s recent Inceptionism blog post, cnn-vis is an open-source tool that lets you use convolutional neural networks to generate images.</p>
 </blockquote>
+
+<hr />
+
+<h3 id="update">Update</h3>
+
+<p>Check out my friend Adrian’s <a href="https://github.com/jrosebr1/bat-country">bat-county</a> repository on GitHub.</p>
+
+<blockquote>
+  <p>A lightweight, extendible, easy to use Python package for deep dreaming and image generation with Caffe and CNNs.</p>
+</blockquote>
+
+<hr />
 
 <p>A lot of people wanted to try the <code>deepdream</code> code, but were unable to setup the environment. As a follow-up, I will soon blog about setting up Caffe on Ubuntu 14.04(CPU) and running the <code>deepdream</code> code.</p>
 
