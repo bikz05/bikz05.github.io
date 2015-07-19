@@ -6,12 +6,12 @@
 </description>
     <link>http://bikz05.github.io/</link>
     <atom:link href="http://bikz05.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sat, 11 Jul 2015 10:13:03 +0530</pubDate>
-    <lastBuildDate>Sat, 11 Jul 2015 10:13:03 +0530</lastBuildDate>
+    <pubDate>Sun, 19 Jul 2015 12:34:25 +0530</pubDate>
+    <lastBuildDate>Sun, 19 Jul 2015 12:34:25 +0530</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
-        <title>Generating images with Google&#39;s &quot;INCEPTIONISM&quot; -- deepdream</title>
+        <title>Generating images with Google's &quot;INCEPTIONISM&quot; -- deepdream</title>
         <description>&lt;p&gt;A couple of weeks ago Google Research blogged about a visualization technique which they named as “INCEPTIONISM” that could be used to make a pre-trained neural network generate intriguing picture. Alternatively, this technique can also be used to understand how well the neural network is learning at each layer. To get a high-level idea of what Google did, I recommend reading the original blog post &lt;a href=&quot;http://googleresearch.blogspot.in/2015/06/inceptionism-going-deeper-into-neural.html&quot;&gt;Inceptionism: Going Deeper into Neural Networks&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;This blog post got a lot of publicity in both the Computer Vision community and print media. So yesterday, Google announced in &lt;a href=&quot;DeepDream - a code example for visualizing Neural Networks&quot;&gt;this&lt;/a&gt; blog post that it had open sourced the code. The code is available on &lt;a href=&quot;https://github.com/google/deepdream&quot;&gt;GitHub&lt;/a&gt;. To clone the repository, enter the below command in the terminal.&lt;/p&gt;
