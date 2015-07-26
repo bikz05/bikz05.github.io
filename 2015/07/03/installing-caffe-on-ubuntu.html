@@ -18,12 +18,12 @@
     <meta name="viewport" content="width=device-width initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Saving and Loading Keypoints in File using OpenCV and Python</title>
+    <title>Caffe Installation on Ubuntu 14.04 (CPU) with PYTHON support</title>
     <meta name="description" content="Computer Vision and Programming blog
 ">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://bikz05.github.io/2015/01/16/saving-and-loading-keypoints-in-file-using-opencv-and-python.html">
+    <link rel="canonical" href="http://bikz05.github.io/2015/07/03/installing-caffe-on-ubuntu.html">
 </head>
 
 
@@ -183,82 +183,161 @@ font-family: 'Roboto', sans-serif;
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript">stLight.options({publisher: "e95f9855-8c25-452f-a5aa-52401715f9e1", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 
-    <h1 class="post-title" style="font-family: 'Indie Flower', cursive;">Saving and Loading Keypoints in File using OpenCV and Python</h1>
-    <p class="post-meta" style="font-family: 'Roboto', 'sans-serif;'">Jan 16, 2015 • Bikramjot Singh Hanzra
+    <h1 class="post-title" style="font-family: 'Indie Flower', cursive;">Caffe Installation on Ubuntu 14.04 (CPU) with PYTHON support</h1>
+    <p class="post-meta" style="font-family: 'Roboto', 'sans-serif;'">Jul 3, 2015 • Bikramjot Singh Hanzra
 <br>Posted under 
 <!--  
  -->
-<span class="bikzclick_tag"><a href="/categories/keypoints">keypoints  </a></span>
+<span class="bikzclick_tag"><a href="/categories/caffe">caffe  </a></span>
 <!--  
  -->
-<span class="bikzclick_tag"><a href="/categories/opencv">opencv  </a></span>
+<span class="bikzclick_tag"><a href="/categories/deep-learning">deep learning  </a></span>
 <!--  
  -->
-<span class="bikzclick_tag"><a href="/categories/python">python  </a></span> 
+<span class="bikzclick_tag"><a href="/categories/google-research">google research  </a></span>
+<!--  
+ -->
+<span class="bikzclick_tag"><a href="/categories/ubuntu">ubuntu  </a></span> 
 </p>
   </header>
 
   <article class="post-content" style="font-family: 'Roboto', sans-serif;">
-    <p>In this post, we will write 2 python scripts -</p>
+    <p>In this tutorial, I will detail the steps for installing Caffe on a non-GPU(CPU) machine with Ubuntu 14.04 OS. Once we are done with the installation, we’ll also test the <a href="https://github.com/google/deepdream">GOOGLE INCEPTIONISM (<code>deepdream</code>) code</a> which uses Caffe. This is a follow up post to my last post – <a href="/2015/07/03/google-inceptionism.html">Generating images with Google’s “INCEPTIONISM” – deepdream</a> where I had shared some awesome images generated using <code>deepdream</code> code. So, let’s get our hands dirty straight away <img class="emoji" title=":smile:" alt=":smile:" src="https://assets.github.com/images/icons/emoji/unicode/1f604.png" height="20" width="20" align="absmiddle" />.</p>
+
+<p>Firstly, let’s make a directory named <code>deep-learning</code> in the <code>$HOME</code> folder where we will download all the packages.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~
+mkdir deep-learning
+<span class="nb">cd </span>deep-learning</code></pre></div>
+
+<h2 id="installing-the-dependencies">1. Installing the dependencies</h2>
+
+<p>To successfully compile Caffe we need to install a few packages first. Execute the below command in the terminal. (<em>These commands will require root access</em>)</p>
+
+<blockquote>
+  <p>NOTE -&gt; Since we will not be using GPUs, we do not require CUDA installation.</p>
+</blockquote>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># General Dependencies</span>
+sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler
+sudo apt-get install --no-install-recommends libboost-all-dev
+
+<span class="c"># BLAS -- for better CPU performance</span>
+sudo apt-get install libatlas-base-dev
+
+<span class="c"># Python -- It comes preinstalled on Ubuntu 14.04</span>
+<span class="c"># Required if you want to use Python wrappers for Caffe</span>
+sudo apt-get install the python-dev
+
+<span class="c"># Remaining dependencies</span>
+sudo apt-get install libgflags-dev libgoogle-glog-dev liblmdb-dev</code></pre></div>
+
+<h2 id="compile-and-install-caffe">2. Compile and Install Caffe</h2>
+
+<p>The Caffe repository is hosted on GitHub. To clone the repository enter the below command in the terminal.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~/deep-learning
+git clone http://github.com/BVLC/caffe.git
+<span class="nb">cd </span>caffe</code></pre></div>
+
+<p>The <code>Makefile.config.example</code> contains the template for configuration file. We’ll use it to write the <code>Makefile.config</code> configuration file.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">cp Makefile.config.example Makefile.config</code></pre></div>
+
+<p>In the <code>Makefile.config</code> file we need to set options if we want to use a CPU or a GPU. Open your favorite editor and uncomment the line <code>CPU_ONLY := 1</code>(most probably, line number 8) as shown below.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="lineno">8</span> CPU_ONLY :<span class="o">=</span> 1</code></pre></div>
+
+<p>After setting the configuration, the next step is to make Caffe or brew Caffe <img class="emoji" title=":smile:" alt=":smile:" src="https://assets.github.com/images/icons/emoji/unicode/1f604.png" height="20" width="20" align="absmiddle" /> .</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">make all
+make <span class="nb">test</span>
+make runtest</code></pre></div>
+
+<hr />
+
+<h3 id="note">NOTE</h3>
+
+<p>If you get an OpenCV <code>undefined reference error</code> in <code>make all</code> as shown below follow the instructions below else move to the section 3.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">.build_release/lib/libcaffe.so: undefined reference to <span class="sb">`</span>cv::imread<span class="o">(</span>cv::String const<span class="p">&amp;</span>, int<span class="o">)</span><span class="s1">&#39;</span>
+<span class="s1">.build_release/lib/libcaffe.so: undefined reference to `cv::imencode(cv::String const&amp;, cv::_InputArray const&amp;, std::vector&lt;unsigned char, std::allocator&lt;unsigned char&gt; &gt;&amp;, std::vector&lt;int, std::allocator&lt;int&gt; &gt; const&amp;)&#39;</span>
+.build_release/lib/libcaffe.so: undefined reference to <span class="sb">`</span>cv::imdecode<span class="o">(</span>cv::_InputArray const<span class="p">&amp;</span>, int<span class="o">)</span><span class="err">&#39;</span>
+collect2: error: ld returned <span class="m">1</span> <span class="nb">exit </span>status
+make: *** <span class="o">[</span>.build_release/tools/caffe.bin<span class="o">]</span> Error 1</code></pre></div>
+
+<p>(Check <a href="https://github.com/BVLC/caffe/issues/2348">this</a> issue) for more details. In order to fix the errror, append <code>opencv_imgcodecs</code> on line 176(most probably) as shown below.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="lineno">174</span> LIBRARIES +<span class="o">=</span> glog gflags protobuf leveldb snappy <span class="se">\</span>
+<span class="lineno">175</span> mdb boost_system hdf5_hl hdf5 m <span class="se">\</span>
+<span class="lineno">176</span> opencv_core opencv_highgui opencv_imgproc opencv_imgcodecs</code></pre></div>
+
+<p>Now clear of the contents of <code>build</code>. This is important else the error will persist.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">rm -rf ./build/*</code></pre></div>
+
+<p>Now rerun the previous commands.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">make all
+make <span class="nb">test</span>
+make runtest</code></pre></div>
+
+<hr />
+
+<h2 id="adding-python-support">3. Adding PYTHON support</h2>
+
+<p>To add PYTHON support, run the below commands in the terminal. We need Python support to run the <code>deepdream</code> code.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~/deep-learning/caffe
+make pycaffe
+<span class="nb">echo export </span><span class="nv">PYTHONPATH</span><span class="o">=</span>~/deep-learning/caffe/python:<span class="nv">$PYTHONPATH</span> &gt;&gt; ~/.bashrc</code></pre></div>
+
+<h2 id="running-the-inceptionism-code">4. Running the INCEPTIONISM code</h2>
+
+<blockquote>
+  <p>Read the INCEPTIONISM post by Google Research <a href="http://googleresearch.blogspot.ch/2015/06/inceptionism-going-deeper-into-neural.html">here</a></p>
+</blockquote>
+
+<p>To run the INCEPTIONISM code follow the below instructions.</p>
+
+<h3 id="download-the-googlennet-model-and-clone-the-deepdream-github-repository">4.1. Download the GoogLenNet model and clone the deepdream GitHub repository.</h3>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~/deep-learning
+wget http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel
+mv bvlc_googlenet.caffemodel caffe/models/bvlc_googlenet/
+git clone https://github.com/google/deepdream.git</code></pre></div>
+
+<h3 id="install-the-dependencies">4.2. Install the dependencies</h3>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo pip install <span class="s2">&quot;ipython[all]&quot;</span> 
+sudo pip install numpy
+sudo pip install scipy
+sudo pip install protobuf
+sudo pip install skimage</code></pre></div>
+
+<h3 id="run-the-ipython-notebook">4.3. Run the IPython Notebook</h3>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~/deep<span class="o">=</span>learning/deepdream
+ipython notebook</code></pre></div>
+
+<p>Now the IPython notebook dashboard will open up in your default browser as shown below.</p>
+
+<figure id="figure-1"><a href="/figures/2015-07-27-installing-caffe-on-ubuntu/ipython.png"><img src="/figures/2015-07-27-installing-caffe-on-ubuntu/ipython.png" alt="Snapshot of IPython Notebook Dashboard" /></a><figcaption>Figure 1: Snapshot of IPython Notebook Dashboard [<a href="/figures/2015-07-27-installing-caffe-on-ubuntu/ipython.png">PNG</a>]</figcaption></figure>
+
+<p>In the list of files, click on <code>dream.ipynb</code> and you will get an output as shown in the figure below.</p>
+
+<figure id="figure-2"><a href="/figures/2015-07-27-installing-caffe-on-ubuntu/inceptionism.png"><img src="/figures/2015-07-27-installing-caffe-on-ubuntu/inceptionism.png" alt="Snapshot of IPython Notebook" /></a><figcaption>Figure 2: Snapshot of IPython Notebook [<a href="/figures/2015-07-27-installing-caffe-on-ubuntu/inceptionism.png">PNG</a>]</figcaption></figure>
+
+<p>So, this is it ! Use this IPython Notebook to play with the <code>deepdream</code> code to generate some awesome images. I hope you liked the post and THANK YOU <img class="emoji" title=":smile:" alt=":smile:" src="https://assets.github.com/images/icons/emoji/unicode/1f604.png" height="20" width="20" align="absmiddle" /> for reading.</p>
+
+<h2 id="important-links">Important Links</h2>
 
 <ol>
-  <li>First one, to load a image, extract the keypoints and save them in a file.</li>
-  <li>Second one, load the file saved in the previous script and draw the contours on the same image used in step 1.</li>
+  <li><a href="https://github.com/BVLC/caffe">Caffe GitHub repository</a></li>
+  <li><a href="https://github.com/google/deepdream">deepdream GitHub repository</a></li>
+  <li><a href="http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel">GoogLeNet Caffe Model</a></li>
 </ol>
 
-<p>Normally, for loading and saving data, we will use <code>cPickle</code> package. To store data in a file we use the <code>dump</code> function and to load data we use <code>loads</code> function. The problem with OpenCV’s <code>keypoint</code> type is that we cannot directly dump keypoints objects using <code>dump</code> function. If we try to do so, we’ll get an error as shown below -</p>
-
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">pickle</span><span class="o">.</span><span class="n">PicklingError</span><span class="p">:</span> <span class="n">Can</span><span class="s">&#39;t pickle &lt;type &#39;</span><span class="n">cv2</span><span class="o">.</span><span class="n">KeyPoint</span><span class="s">&#39;&gt;: it&#39;</span><span class="n">s</span> <span class="ow">not</span> <span class="n">the</span> <span class="n">same</span> <span class="nb">object</span> <span class="k">as</span> <span class="n">cv2</span><span class="o">.</span><span class="n">KeyPoint</span></code></pre></div>
-
-<p>So, we need to serialize and deserialize the keypoints data.</p>
-
-<p>So, let’s write code, for the first script for saving the keypoints in a file.</p>
-
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="lineno"> 1</span> <span class="kn">import</span> <span class="nn">cv2</span>
-<span class="lineno"> 2</span> <span class="kn">import</span> <span class="nn">cPickle</span>
-<span class="lineno"> 3</span> 
-<span class="lineno"> 4</span> <span class="n">im</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s">&quot;/home/bikz05/Desktop/dataset/checkered-3.jpg&quot;</span><span class="p">)</span>
-<span class="lineno"> 5</span> <span class="n">gr</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">im</span><span class="p">,</span><span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
-<span class="lineno"> 6</span> <span class="n">d</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">FeatureDetector_create</span><span class="p">(</span><span class="s">&quot;SIFT&quot;</span><span class="p">)</span>
-<span class="lineno"> 7</span> <span class="n">kp</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">gr</span><span class="p">)</span>
-<span class="lineno"> 8</span> 
-<span class="lineno"> 9</span> <span class="n">index</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="lineno">10</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">kp</span><span class="p">:</span>
-<span class="lineno">11</span> <span class="n">temp</span> <span class="o">=</span> <span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">pt</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">angle</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">response</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">octave</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">class_id</span>
-<span class="lineno">12</span> <span class="n">index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
-<span class="lineno">13</span> 
-<span class="lineno">14</span> <span class="c"># Dump the keypoints</span>
-<span class="lineno">15</span> <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;/home/bikz05/Desktop/dataset/keypoints.txt&quot;</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span>
-<span class="lineno">16</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">cPickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
-<span class="lineno">17</span> <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></code></pre></div>
-
-<p>We have saved our keypoints in <code>keypoints.txt</code>. Now, let’s load those keypoints in a separate script and draw them on the same image.</p>
-
-<p>Now let’s write second script which will load the keypoints from the file and display them on the image.</p>
-
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="lineno"> 1</span> <span class="kn">import</span> <span class="nn">cv2</span>
-<span class="lineno"> 2</span> <span class="kn">import</span> <span class="nn">cPickle</span>
-<span class="lineno"> 3</span> 
-<span class="lineno"> 4</span> <span class="n">im</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s">&quot;/home/bikz05/Desktop/dataset/checkered-3.jpg&quot;</span><span class="p">)</span>
-<span class="lineno"> 5</span> <span class="n">index</span> <span class="o">=</span> <span class="n">cPickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s">&quot;/home/bikz05/Desktop/dataset/keypoints.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-<span class="lineno"> 6</span> <span class="n">kp</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="lineno"> 7</span> 
-<span class="lineno"> 8</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
-<span class="lineno"> 9</span>     <span class="n">temp</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">KeyPoint</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">y</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span><span class="n">_size</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_angle</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">_response</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">_octave</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">_class_id</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> 
-<span class="lineno">10</span>     <span class="n">kp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
-<span class="lineno">11</span> 
-<span class="lineno">12</span> <span class="c"># Draw the keypoints</span>
-<span class="lineno">13</span> <span class="n">imm</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">drawKeypoints</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">kp</span><span class="p">);</span>
-<span class="lineno">14</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s">&quot;Image&quot;</span><span class="p">,</span> <span class="n">imm</span><span class="p">);</span>
-<span class="lineno">15</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></code></pre></div>
-
-<p>That’s it, the above script when run will display the image with all the keypoints marked on it.</p>
-
-<h2 id="results">Results</h2>
-
-<figure id="figure-1"><a href="/figures/original-kps.jpg"><img src="/figures/original-kps.jpg" alt="Input Image" /></a><figcaption>Figure 1: Input Image [<a href="/figures/original-kps.jpg">JPG</a>]</figcaption></figure>
-
-<figure id="figure-2"><a href="/figures/changed-kps.png"><img src="/figures/changed-kps.png" alt="Output Image" /></a><figcaption>Figure 2: Output Image [<a href="/figures/changed-kps.png">PNG</a>]</figcaption></figure>
 
   </article>
   

@@ -6,9 +6,171 @@
 </description>
     <link>http://bikz05.github.io/</link>
     <atom:link href="http://bikz05.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Sun, 19 Jul 2015 12:34:25 +0530</pubDate>
-    <lastBuildDate>Sun, 19 Jul 2015 12:34:25 +0530</lastBuildDate>
+    <pubDate>Mon, 27 Jul 2015 04:53:05 +0530</pubDate>
+    <lastBuildDate>Mon, 27 Jul 2015 04:53:05 +0530</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>Caffe Installation on Ubuntu 14.04 (CPU) with PYTHON support</title>
+        <description>&lt;p&gt;In this tutorial, I will detail the steps for installing Caffe on a non-GPU(CPU) machine with Ubuntu 14.04 OS. Once we are done with the installation, we’ll also test the &lt;a href=&quot;https://github.com/google/deepdream&quot;&gt;GOOGLE INCEPTIONISM (&lt;code&gt;deepdream&lt;/code&gt;) code&lt;/a&gt; which uses Caffe. This is a follow up post to my last post – &lt;a href=&quot;/2015/07/03/google-inceptionism.html&quot;&gt;Generating images with Google’s “INCEPTIONISM” – deepdream&lt;/a&gt; where I had shared some awesome images generated using &lt;code&gt;deepdream&lt;/code&gt; code. So, let’s get our hands dirty straight away &lt;img class=&quot;emoji&quot; title=&quot;:smile:&quot; alt=&quot;:smile:&quot; src=&quot;https://assets.github.com/images/icons/emoji/unicode/1f604.png&quot; height=&quot;20&quot; width=&quot;20&quot; align=&quot;absmiddle&quot; /&gt;.&lt;/p&gt;
+
+&lt;p&gt;Firstly, let’s make a directory named &lt;code&gt;deep-learning&lt;/code&gt; in the &lt;code&gt;$HOME&lt;/code&gt; folder where we will download all the packages.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~
+mkdir deep-learning
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;deep-learning&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;installing-the-dependencies&quot;&gt;1. Installing the dependencies&lt;/h2&gt;
+
+&lt;p&gt;To successfully compile Caffe we need to install a few packages first. Execute the below command in the terminal. (&lt;em&gt;These commands will require root access&lt;/em&gt;)&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;NOTE -&amp;gt; Since we will not be using GPUs, we do not require CUDA installation.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;c&quot;&gt;# General Dependencies&lt;/span&gt;
+sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler
+sudo apt-get install --no-install-recommends libboost-all-dev
+
+&lt;span class=&quot;c&quot;&gt;# BLAS -- for better CPU performance&lt;/span&gt;
+sudo apt-get install libatlas-base-dev
+
+&lt;span class=&quot;c&quot;&gt;# Python -- It comes preinstalled on Ubuntu 14.04&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;# Required if you want to use Python wrappers for Caffe&lt;/span&gt;
+sudo apt-get install the python-dev
+
+&lt;span class=&quot;c&quot;&gt;# Remaining dependencies&lt;/span&gt;
+sudo apt-get install libgflags-dev libgoogle-glog-dev liblmdb-dev&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;compile-and-install-caffe&quot;&gt;2. Compile and Install Caffe&lt;/h2&gt;
+
+&lt;p&gt;The Caffe repository is hosted on GitHub. To clone the repository enter the below command in the terminal.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/deep-learning
+git clone http://github.com/BVLC/caffe.git
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;caffe&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;The &lt;code&gt;Makefile.config.example&lt;/code&gt; contains the template for configuration file. We’ll use it to write the &lt;code&gt;Makefile.config&lt;/code&gt; configuration file.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;cp Makefile.config.example Makefile.config&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;In the &lt;code&gt;Makefile.config&lt;/code&gt; file we need to set options if we want to use a CPU or a GPU. Open your favorite editor and uncomment the line &lt;code&gt;CPU_ONLY := 1&lt;/code&gt;(most probably, line number 8) as shown below.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;8&lt;/span&gt; CPU_ONLY :&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 1&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;After setting the configuration, the next step is to make Caffe or brew Caffe &lt;img class=&quot;emoji&quot; title=&quot;:smile:&quot; alt=&quot;:smile:&quot; src=&quot;https://assets.github.com/images/icons/emoji/unicode/1f604.png&quot; height=&quot;20&quot; width=&quot;20&quot; align=&quot;absmiddle&quot; /&gt; .&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;make all
+make &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+make runtest&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h3 id=&quot;note&quot;&gt;NOTE&lt;/h3&gt;
+
+&lt;p&gt;If you get an OpenCV &lt;code&gt;undefined reference error&lt;/code&gt; in &lt;code&gt;make all&lt;/code&gt; as shown below follow the instructions below else move to the section 3.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;.build_release/lib/libcaffe.so: undefined reference to &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;cv::imread&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;cv::String const&lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt;, int&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;s1&quot;&gt;.build_release/lib/libcaffe.so: undefined reference to `cv::imencode(cv::String const&amp;amp;, cv::_InputArray const&amp;amp;, std::vector&amp;lt;unsigned char, std::allocator&amp;lt;unsigned char&amp;gt; &amp;gt;&amp;amp;, std::vector&amp;lt;int, std::allocator&amp;lt;int&amp;gt; &amp;gt; const&amp;amp;)&amp;#39;&lt;/span&gt;
+.build_release/lib/libcaffe.so: undefined reference to &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;cv::imdecode&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;cv::_InputArray const&lt;span class=&quot;p&quot;&gt;&amp;amp;&lt;/span&gt;, int&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;&amp;#39;&lt;/span&gt;
+collect2: error: ld returned &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;exit &lt;/span&gt;status
+make: *** &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt;.build_release/tools/caffe.bin&lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; Error 1&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;(Check &lt;a href=&quot;https://github.com/BVLC/caffe/issues/2348&quot;&gt;this&lt;/a&gt; issue) for more details. In order to fix the errror, append &lt;code&gt;opencv_imgcodecs&lt;/code&gt; on line 176(most probably) as shown below.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;lineno&quot;&gt;174&lt;/span&gt; LIBRARIES +&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; glog gflags protobuf leveldb snappy &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;175&lt;/span&gt; mdb boost_system hdf5_hl hdf5 m &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+&lt;span class=&quot;lineno&quot;&gt;176&lt;/span&gt; opencv_core opencv_highgui opencv_imgproc opencv_imgcodecs&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now clear of the contents of &lt;code&gt;build&lt;/code&gt;. This is important else the error will persist.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;rm -rf ./build/*&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now rerun the previous commands.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;make all
+make &lt;span class=&quot;nb&quot;&gt;test&lt;/span&gt;
+make runtest&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&quot;adding-python-support&quot;&gt;3. Adding PYTHON support&lt;/h2&gt;
+
+&lt;p&gt;To add PYTHON support, run the below commands in the terminal. We need Python support to run the &lt;code&gt;deepdream&lt;/code&gt; code.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/deep-learning/caffe
+make pycaffe
+&lt;span class=&quot;nb&quot;&gt;echo export &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;PYTHONPATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;~/deep-learning/caffe/python:&lt;span class=&quot;nv&quot;&gt;$PYTHONPATH&lt;/span&gt; &amp;gt;&amp;gt; ~/.bashrc&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;running-the-inceptionism-code&quot;&gt;4. Running the INCEPTIONISM code&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Read the INCEPTIONISM post by Google Research &lt;a href=&quot;http://googleresearch.blogspot.ch/2015/06/inceptionism-going-deeper-into-neural.html&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;To run the INCEPTIONISM code follow the below instructions.&lt;/p&gt;
+
+&lt;h3 id=&quot;download-the-googlennet-model-and-clone-the-deepdream-github-repository&quot;&gt;4.1. Download the GoogLenNet model and clone the deepdream GitHub repository.&lt;/h3&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/deep-learning
+wget http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel
+mv bvlc_googlenet.caffemodel caffe/models/bvlc_googlenet/
+git clone https://github.com/google/deepdream.git&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;install-the-dependencies&quot;&gt;4.2. Install the dependencies&lt;/h3&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo pip install &lt;span class=&quot;s2&quot;&gt;&amp;quot;ipython[all]&amp;quot;&lt;/span&gt; 
+sudo pip install numpy
+sudo pip install scipy
+sudo pip install protobuf
+sudo pip install skimage&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;run-the-ipython-notebook&quot;&gt;4.3. Run the IPython Notebook&lt;/h3&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~/deep&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;learning/deepdream
+ipython notebook&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now the IPython notebook dashboard will open up in your default browser as shown below.&lt;/p&gt;
+
+&lt;figure id=&quot;figure-1&quot;&gt;&lt;a href=&quot;/figures/2015-07-27-installing-caffe-on-ubuntu/ipython.png&quot;&gt;&lt;img src=&quot;/figures/2015-07-27-installing-caffe-on-ubuntu/ipython.png&quot; alt=&quot;Snapshot of IPython Notebook Dashboard&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;Figure 1: Snapshot of IPython Notebook Dashboard [&lt;a href=&quot;/figures/2015-07-27-installing-caffe-on-ubuntu/ipython.png&quot;&gt;PNG&lt;/a&gt;]&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;In the list of files, click on &lt;code&gt;dream.ipynb&lt;/code&gt; and you will get an output as shown in the figure below.&lt;/p&gt;
+
+&lt;figure id=&quot;figure-2&quot;&gt;&lt;a href=&quot;/figures/2015-07-27-installing-caffe-on-ubuntu/inceptionism.png&quot;&gt;&lt;img src=&quot;/figures/2015-07-27-installing-caffe-on-ubuntu/inceptionism.png&quot; alt=&quot;Snapshot of IPython Notebook&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;Figure 2: Snapshot of IPython Notebook [&lt;a href=&quot;/figures/2015-07-27-installing-caffe-on-ubuntu/inceptionism.png&quot;&gt;PNG&lt;/a&gt;]&lt;/figcaption&gt;&lt;/figure&gt;
+
+&lt;p&gt;So, this is it ! Use this IPython Notebook to play with the &lt;code&gt;deepdream&lt;/code&gt; code to generate some awesome images. I hope you liked the post and THANK YOU &lt;img class=&quot;emoji&quot; title=&quot;:smile:&quot; alt=&quot;:smile:&quot; src=&quot;https://assets.github.com/images/icons/emoji/unicode/1f604.png&quot; height=&quot;20&quot; width=&quot;20&quot; align=&quot;absmiddle&quot; /&gt; for reading.&lt;/p&gt;
+
+&lt;h2 id=&quot;important-links&quot;&gt;Important Links&lt;/h2&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/BVLC/caffe&quot;&gt;Caffe GitHub repository&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/google/deepdream&quot;&gt;deepdream GitHub repository&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel&quot;&gt;GoogLeNet Caffe Model&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+</description>
+        <pubDate>Fri, 03 Jul 2015 00:00:00 +0530</pubDate>
+        <link>http://bikz05.github.io/2015/07/03/installing-caffe-on-ubuntu.html</link>
+        <guid isPermaLink="true">http://bikz05.github.io/2015/07/03/installing-caffe-on-ubuntu.html</guid>
+        
+        <category>caffe</category>
+        
+        <category>google research</category>
+        
+        <category>ubuntu</category>
+        
+        <category>deep learning</category>
+        
+        
+        <category>caffe</category>
+        
+        <category>deep learning</category>
+        
+        <category>google research</category>
+        
+        <category>ubuntu</category>
+        
+      </item>
     
       <item>
         <title>Generating images with Google's &quot;INCEPTIONISM&quot; -- deepdream</title>
@@ -107,6 +269,8 @@ mv bvlc_googlenet.caffemodel &amp;lt;path to Caffe installation&amp;gt;/caffe/mo
 &lt;hr /&gt;
 
 &lt;p&gt;A lot of people wanted to try the &lt;code&gt;deepdream&lt;/code&gt; code, but were unable to setup the environment. As a follow-up, I will soon blog about setting up Caffe on Ubuntu 14.04(CPU) and running the &lt;code&gt;deepdream&lt;/code&gt; code.&lt;/p&gt;
+
+&lt;h3 id=&quot;update---check-out-my-new-post-on-caffe-installation-on-ubuntu-1404-cpu20150703installing-caffe-on-ubuntuhtml&quot;&gt;UPDATE - Check out my new post on &lt;a href=&quot;/2015/07/03/installing-caffe-on-ubuntu.html&quot;&gt;Caffe Installation on Ubuntu 14.04 (CPU)&lt;/a&gt;.&lt;/h3&gt;
 </description>
         <pubDate>Fri, 03 Jul 2015 00:00:00 +0530</pubDate>
         <link>http://bikz05.github.io/2015/07/03/google-inceptionism.html</link>
@@ -1404,92 +1568,6 @@ sudo pip install colormath&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
         
         
         <category>color difference</category>
-        
-        <category>python</category>
-        
-      </item>
-    
-      <item>
-        <title>Saving and Loading Keypoints in File using OpenCV and Python</title>
-        <description>&lt;p&gt;In this post, we will write 2 python scripts -&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;First one, to load a image, extract the keypoints and save them in a file.&lt;/li&gt;
-  &lt;li&gt;Second one, load the file saved in the previous script and draw the contours on the same image used in step 1.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;Normally, for loading and saving data, we will use &lt;code&gt;cPickle&lt;/code&gt; package. To store data in a file we use the &lt;code&gt;dump&lt;/code&gt; function and to load data we use &lt;code&gt;loads&lt;/code&gt; function. The problem with OpenCV’s &lt;code&gt;keypoint&lt;/code&gt; type is that we cannot directly dump keypoints objects using &lt;code&gt;dump&lt;/code&gt; function. If we try to do so, we’ll get an error as shown below -&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;pickle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;PicklingError&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Can&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;t pickle &amp;lt;type &amp;#39;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;KeyPoint&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;&amp;gt;: it&amp;#39;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;not&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;the&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;same&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;object&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;KeyPoint&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;So, we need to serialize and deserialize the keypoints data.&lt;/p&gt;
-
-&lt;p&gt;So, let’s write code, for the first script for saving the keypoints in a file.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;cv2&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;cPickle&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt; 
-&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;im&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;/home/bikz05/Desktop/dataset/checkered-3.jpg&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;gr&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cvtColor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;im&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;COLOR_BGR2GRAY&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FeatureDetector_create&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;SIFT&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;d&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;detect&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt; 
-&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;point&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;point&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pt&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;point&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;point&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;angle&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;point&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;response&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;point&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;octave&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;point&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;class_id&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;13&lt;/span&gt; 
-&lt;span class=&quot;lineno&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Dump the keypoints&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;15&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;/home/bikz05/Desktop/dataset/keypoints.txt&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;w&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;16&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;write&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cPickle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dumps&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;17&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;f&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;We have saved our keypoints in &lt;code&gt;keypoints.txt&lt;/code&gt;. Now, let’s load those keypoints in a separate script and draw them on the same image.&lt;/p&gt;
-
-&lt;p&gt;Now let’s write second script which will load the keypoints from the file and display them on the image.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;lineno&quot;&gt; 1&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;cv2&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 2&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;cPickle&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 3&lt;/span&gt; 
-&lt;span class=&quot;lineno&quot;&gt; 4&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;im&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imread&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;/home/bikz05/Desktop/dataset/checkered-3.jpg&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 5&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cPickle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loads&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;open&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;/home/bikz05/Desktop/dataset/keypoints.txt&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 6&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 7&lt;/span&gt; 
-&lt;span class=&quot;lineno&quot;&gt; 8&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;point&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt; 9&lt;/span&gt;     &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;KeyPoint&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;point&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;point&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;_size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;point&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_angle&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;point&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_response&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;point&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_octave&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;point&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;_class_id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;point&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; 
-&lt;span class=&quot;lineno&quot;&gt;10&lt;/span&gt;     &lt;span class=&quot;n&quot;&gt;kp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;11&lt;/span&gt; 
-&lt;span class=&quot;lineno&quot;&gt;12&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Draw the keypoints&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;13&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imm&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;drawKeypoints&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;im&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;kp&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;imshow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Image&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;imm&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;lineno&quot;&gt;15&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cv2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;waitKey&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;That’s it, the above script when run will display the image with all the keypoints marked on it.&lt;/p&gt;
-
-&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
-
-&lt;figure id=&quot;figure-1&quot;&gt;&lt;a href=&quot;/figures/original-kps.jpg&quot;&gt;&lt;img src=&quot;/figures/original-kps.jpg&quot; alt=&quot;Input Image&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;Figure 1: Input Image [&lt;a href=&quot;/figures/original-kps.jpg&quot;&gt;JPG&lt;/a&gt;]&lt;/figcaption&gt;&lt;/figure&gt;
-
-&lt;figure id=&quot;figure-2&quot;&gt;&lt;a href=&quot;/figures/changed-kps.png&quot;&gt;&lt;img src=&quot;/figures/changed-kps.png&quot; alt=&quot;Output Image&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;Figure 2: Output Image [&lt;a href=&quot;/figures/changed-kps.png&quot;&gt;PNG&lt;/a&gt;]&lt;/figcaption&gt;&lt;/figure&gt;
-</description>
-        <pubDate>Fri, 16 Jan 2015 07:44:54 +0530</pubDate>
-        <link>http://bikz05.github.io/2015/01/16/saving-and-loading-keypoints-in-file-using-opencv-and-python.html</link>
-        <guid isPermaLink="true">http://bikz05.github.io/2015/01/16/saving-and-loading-keypoints-in-file-using-opencv-and-python.html</guid>
-        
-        <category>computer vision</category>
-        
-        <category>image processing</category>
-        
-        <category>keypoints</category>
-        
-        <category>opencv</category>
-        
-        <category>python</category>
-        
-        
-        <category>keypoints</category>
-        
-        <category>opencv</category>
         
         <category>python</category>
         
