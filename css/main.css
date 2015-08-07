@@ -338,17 +338,11 @@ pre {
 .bikzclick_tag {
   text-align: center;
   text-transform: uppercase;
-  display: inline-block;
   color: black;
-  padding: 1px 10px;
-  font-size: 0.9em;
-  font-weight: bold;
+  padding: 1px 1px;
+  font-size: 1em;
   text-decoration: none;
-  border-radius: 5px;
-  background-color: #eef;
-  background-size: initial;
-  background-origin: initial;
-  background-clip: initial; }
+  background-color: #eef; }
 
 /**
  * Syntax highlighting styles

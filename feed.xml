@@ -6,8 +6,8 @@
 </description>
     <link>http://bikz05.github.io/</link>
     <atom:link href="http://bikz05.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 27 Jul 2015 07:20:45 +0530</pubDate>
-    <lastBuildDate>Mon, 27 Jul 2015 07:20:45 +0530</lastBuildDate>
+    <pubDate>Fri, 07 Aug 2015 12:21:39 +0530</pubDate>
+    <lastBuildDate>Fri, 07 Aug 2015 12:21:39 +0530</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -164,11 +164,11 @@ ipython notebook&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
         
         <category>caffe</category>
         
-        <category>deep learning</category>
-        
         <category>google research</category>
         
         <category>ubuntu</category>
+        
+        <category>deep learning</category>
         
       </item>
     
@@ -285,13 +285,13 @@ mv bvlc_googlenet.caffemodel &amp;lt;path to Caffe installation&amp;gt;/caffe/mo
         <category>deep learning</category>
         
         
-        <category>deep learning</category>
+        <category>ipython</category>
         
         <category>google research</category>
         
-        <category>ipython</category>
-        
         <category>neural networks</category>
+        
+        <category>deep learning</category>
         
       </item>
     
@@ -598,13 +598,13 @@ Next, we append the histogram to the list &lt;code&gt;X_test&lt;/code&gt;in line
         <category>chi-squared distance</category>
         
         
-        <category>chi-squared distance</category>
-        
-        <category>local binary patterns</category>
+        <category>python</category>
         
         <category>opencv</category>
         
-        <category>python</category>
+        <category>local binary patterns</category>
+        
+        <category>chi-squared distance</category>
         
       </item>
     
@@ -853,13 +853,13 @@ Next, we append the histogram to the list &lt;code&gt;X_test&lt;/code&gt;in line
         <guid isPermaLink="true">http://bikz05.github.io/2015/02/24/handwritten-digit-recognition-using-opencv-sklearn-and-python.html</guid>
         
         
-        <category>digit recognition</category>
-        
-        <category>opencv</category>
-        
         <category>python</category>
         
         <category>sklearn</category>
+        
+        <category>opencv</category>
+        
+        <category>digit recognition</category>
         
       </item>
     
@@ -936,11 +936,11 @@ Next, we append the histogram to the list &lt;code&gt;X_test&lt;/code&gt;in line
         <category>thresholding</category>
         
         
-        <category>color spaces</category>
+        <category>python</category>
         
         <category>opencv</category>
         
-        <category>python</category>
+        <category>color spaces</category>
         
       </item>
     
@@ -1170,13 +1170,13 @@ Out of the 11 images for each individual (12 for the first individual), we will
         <category>Yale Face Database</category>
         
         
-        <category>face detection</category>
-        
-        <category>face recognition</category>
+        <category>python</category>
         
         <category>opencv</category>
         
-        <category>python</category>
+        <category>face recognition</category>
+        
+        <category>face detection</category>
         
       </item>
     
@@ -1203,11 +1203,11 @@ Out of the 11 images for each individual (12 for the first individual), we will
         
         <category>android</category>
         
-        <category>eclipse</category>
+        <category>opencv</category>
         
         <category>java</category>
         
-        <category>opencv</category>
+        <category>eclipse</category>
         
       </item>
     
@@ -1353,11 +1353,11 @@ Out of the 11 images for each individual (12 for the first individual), we will
         <category>threshold</category>
         
         
-        <category>adaptive threshold</category>
+        <category>python</category>
         
         <category>opencv</category>
         
-        <category>python</category>
+        <category>adaptive threshold</category>
         
         <category>thresholding</category>
         
@@ -1483,9 +1483,9 @@ MAW. H‘ .9“ Vmczwr Snuuus-rr&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
         <category>tesseract</category>
         
         
-        <category>ocr</category>
-        
         <category>python</category>
+        
+        <category>ocr</category>
         
         <category>tesseract</category>
         
@@ -1567,9 +1567,9 @@ sudo pip install colormath&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
         <category>python</category>
         
         
-        <category>color difference</category>
-        
         <category>python</category>
+        
+        <category>color difference</category>
         
       </item>
     
