@@ -6,8 +6,8 @@
 </description>
     <link>http://bikz05.github.io/</link>
     <atom:link href="http://bikz05.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 07 Aug 2015 13:03:06 +0530</pubDate>
-    <lastBuildDate>Fri, 07 Aug 2015 13:03:06 +0530</lastBuildDate>
+    <pubDate>Fri, 21 Aug 2015 15:47:06 -0400</pubDate>
+    <lastBuildDate>Fri, 21 Aug 2015 15:47:06 -0400</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
     
       <item>
@@ -149,7 +149,7 @@ ipython notebook&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/ol&gt;
 
 </description>
-        <pubDate>Mon, 27 Jul 2015 00:00:00 +0530</pubDate>
+        <pubDate>Mon, 27 Jul 2015 00:00:00 -0400</pubDate>
         <link>http://bikz05.github.io/2015/07/27/installing-caffe-on-ubuntu.html</link>
         <guid isPermaLink="true">http://bikz05.github.io/2015/07/27/installing-caffe-on-ubuntu.html</guid>
         
@@ -272,7 +272,7 @@ mv bvlc_googlenet.caffemodel &amp;lt;path to Caffe installation&amp;gt;/caffe/mo
 
 &lt;h3 id=&quot;update---check-out-my-new-post-on-caffe-installation-on-ubuntu-1404-cpu20150703installing-caffe-on-ubuntuhtml&quot;&gt;UPDATE - Check out my new post on &lt;a href=&quot;/2015/07/03/installing-caffe-on-ubuntu.html&quot;&gt;Caffe Installation on Ubuntu 14.04 (CPU)&lt;/a&gt;.&lt;/h3&gt;
 </description>
-        <pubDate>Fri, 03 Jul 2015 00:00:00 +0530</pubDate>
+        <pubDate>Fri, 03 Jul 2015 00:00:00 -0400</pubDate>
         <link>http://bikz05.github.io/2015/07/03/google-inceptionism.html</link>
         <guid isPermaLink="true">http://bikz05.github.io/2015/07/03/google-inceptionism.html</guid>
         
@@ -585,7 +585,7 @@ Next, we append the histogram to the list &lt;code&gt;X_test&lt;/code&gt;in line
 &lt;script async=&quot;&quot; defer=&quot;&quot; id=&quot;github-bjs&quot; src=&quot;https://buttons.github.io/buttons.js&quot;&gt;&lt;/script&gt;
 
 </description>
-        <pubDate>Sat, 30 May 2015 00:00:00 +0530</pubDate>
+        <pubDate>Sat, 30 May 2015 00:00:00 -0400</pubDate>
         <link>http://bikz05.github.io/2015/05/30/local-binary-patterns.html</link>
         <guid isPermaLink="true">http://bikz05.github.io/2015/05/30/local-binary-patterns.html</guid>
         
@@ -848,7 +848,7 @@ Next, we append the histogram to the list &lt;code&gt;X_test&lt;/code&gt;in line
 &lt;/span&gt; &lt;/p&gt;
 
 </description>
-        <pubDate>Tue, 24 Feb 2015 18:24:14 +0530</pubDate>
+        <pubDate>Tue, 24 Feb 2015 07:54:14 -0500</pubDate>
         <link>http://bikz05.github.io/2015/02/24/handwritten-digit-recognition-using-opencv-sklearn-and-python.html</link>
         <guid isPermaLink="true">http://bikz05.github.io/2015/02/24/handwritten-digit-recognition-using-opencv-sklearn-and-python.html</guid>
         
@@ -927,7 +927,7 @@ Next, we append the histogram to the list &lt;code&gt;X_test&lt;/code&gt;in line
 &lt;/ul&gt;
 
 </description>
-        <pubDate>Sat, 07 Feb 2015 16:06:56 +0530</pubDate>
+        <pubDate>Sat, 07 Feb 2015 05:36:56 -0500</pubDate>
         <link>http://bikz05.github.io/2015/02/07/caveat-thresholding-hue-component.html</link>
         <guid isPermaLink="true">http://bikz05.github.io/2015/02/07/caveat-thresholding-hue-component.html</guid>
         
@@ -1151,7 +1151,7 @@ Out of the 11 images for each individual (12 for the first individual), we will
   &lt;/li&gt;
 &lt;/ol&gt;
 </description>
-        <pubDate>Tue, 03 Feb 2015 00:00:00 +0530</pubDate>
+        <pubDate>Tue, 03 Feb 2015 00:00:00 -0500</pubDate>
         <link>http://bikz05.github.io/2015/02/03/face-recognition-using-opencv.html</link>
         <guid isPermaLink="true">http://bikz05.github.io/2015/02/03/face-recognition-using-opencv.html</guid>
         
@@ -1196,7 +1196,7 @@ Out of the 11 images for each individual (12 for the first individual), we will
 
 &lt;p&gt;Alternatively, nVidia also provides a suite of developing tools — &lt;a href=&quot;http://developer.nvidia.com/tegra-android-development-pack&quot;&gt;TADP&lt;/a&gt;. The advantage of TADP over the piece-by-piece method is that you don’t need to follow the often perplexing task of setting up the development environment. The default installation will download a lot of superfluous packages that are not needed (The download size can be greater than 2GB and on slow internet connections, it can turn into a prolonged activity.), rather select the packages manually at the time of download (A dialog box will appear, asking you to select either Complete, Custom or Manually.)&lt;/p&gt;
 </description>
-        <pubDate>Sat, 24 Jan 2015 22:15:59 +0530</pubDate>
+        <pubDate>Sat, 24 Jan 2015 11:45:59 -0500</pubDate>
         <link>http://bikz05.github.io/2015/01/24/setting-up-opencv-library-in-eclipse-for-android-development.html</link>
         <guid isPermaLink="true">http://bikz05.github.io/2015/01/24/setting-up-opencv-library-in-eclipse-for-android-development.html</guid>
         
@@ -1334,9 +1334,9 @@ Out of the 11 images for each individual (12 for the first individual), we will
   &lt;li&gt;&lt;a href=&quot;http://nbviewer.ipython.org/gist/bikz05/323dc9e1167689582626&quot;&gt;View the Notebook using NB Viewer&lt;/a&gt; {GIST DOWNLOAD AVAILABLE HERE]&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Thu, 22 Jan 2015 00:19:40 +0530</pubDate>
-        <link>http://bikz05.github.io/2015/01/22/adaptive-thresholding.html</link>
-        <guid isPermaLink="true">http://bikz05.github.io/2015/01/22/adaptive-thresholding.html</guid>
+        <pubDate>Wed, 21 Jan 2015 13:49:40 -0500</pubDate>
+        <link>http://bikz05.github.io/2015/01/21/adaptive-thresholding.html</link>
+        <guid isPermaLink="true">http://bikz05.github.io/2015/01/21/adaptive-thresholding.html</guid>
         
         <category>adaptiveThreshold</category>
         
@@ -1464,9 +1464,9 @@ MAW. H‘ .9“ Vmczwr Snuuus-rr&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/ol&gt;
 
 </description>
-        <pubDate>Fri, 16 Jan 2015 08:31:47 +0530</pubDate>
-        <link>http://bikz05.github.io/2015/01/16/ocr-using-tesseract-on-ubuntu-14-04.html</link>
-        <guid isPermaLink="true">http://bikz05.github.io/2015/01/16/ocr-using-tesseract-on-ubuntu-14-04.html</guid>
+        <pubDate>Thu, 15 Jan 2015 22:01:47 -0500</pubDate>
+        <link>http://bikz05.github.io/2015/01/15/ocr-using-tesseract-on-ubuntu-14-04.html</link>
+        <guid isPermaLink="true">http://bikz05.github.io/2015/01/15/ocr-using-tesseract-on-ubuntu-14-04.html</guid>
         
         <category>computer vision</category>
         
@@ -1552,9 +1552,9 @@ sudo pip install colormath&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
   &lt;li&gt;Relevant &lt;a href=&quot;http://stackoverflow.com/questions/9018016/how-to-compare-two-colors&quot;&gt;Stack Overflow thread&lt;/a&gt;.&lt;/li&gt;
 &lt;/ol&gt;
 </description>
-        <pubDate>Fri, 16 Jan 2015 08:06:20 +0530</pubDate>
-        <link>http://bikz05.github.io/2015/01/16/color-difference-between-2-colors-using-python.html</link>
-        <guid isPermaLink="true">http://bikz05.github.io/2015/01/16/color-difference-between-2-colors-using-python.html</guid>
+        <pubDate>Thu, 15 Jan 2015 21:36:20 -0500</pubDate>
+        <link>http://bikz05.github.io/2015/01/15/color-difference-between-2-colors-using-python.html</link>
+        <guid isPermaLink="true">http://bikz05.github.io/2015/01/15/color-difference-between-2-colors-using-python.html</guid>
         
         <category>cie</category>
         
