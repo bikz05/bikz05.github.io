@@ -6,9 +6,81 @@
 </description>
     <link>http://bikz05.github.io/</link>
     <atom:link href="http://bikz05.github.io/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Fri, 11 Mar 2016 21:54:03 -0500</pubDate>
-    <lastBuildDate>Fri, 11 Mar 2016 21:54:03 -0500</lastBuildDate>
+    <pubDate>Sat, 16 Jul 2016 00:23:12 -0700</pubDate>
+    <lastBuildDate>Sat, 16 Jul 2016 00:23:12 -0700</lastBuildDate>
     <generator>Jekyll v2.5.3</generator>
+    
+      <item>
+        <title>PCA Vectorized Derivation</title>
+        <description>&lt;p&gt;In PCA, we want to find a set of orthogonal basis vectors that maximize variance of the projections of the data on them. Let \( \mathbf{X} \) be the \( n \times d \) matrix where each row is a data point and \( \mathbf{w} \) be the \( d \times 1 \) dimension basis vector. The optimization problem can be formulated as –&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;J(\mathbf{w}) = \arg \max_{\mathbf{w}} ||\mathbf{X \cdot w}||^2 \text{subjected to} ||\mathbf{w}|| = 1&lt;/script&gt;
+
+&lt;p&gt;Introducing &lt;a href=&quot;https://en.wikipedia.org/wiki/Lagrange_multiplier&quot;&gt;Lagrange multiplier&lt;/a&gt; \( \lambda \) we get –&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;J(\mathbf{w}) = \arg \max_{\mathbf{w}} ||\mathbf{X \cdot w}||^2 + \lambda(1 - ||\mathbf{w}||^2)&lt;/script&gt;
+
+&lt;p&gt;Rewriting the norm in terms of dot product –&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;J(\mathbf{w}) = \arg \max_{\mathbf{w}} \mathbf{(X \cdot w)^\intercal } \cdot \mathbf{(X \cdot w)} + \lambda(1-\mathbf{w^\intercal} \cdot \mathbf{w})&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;J(\mathbf{w}) = \arg \max_{\mathbf{w}} \mathbf{w^\intercal \cdot X^\intercal \cdot X \cdot w} + \lambda(1-\mathbf{w^\intercal} \cdot \mathbf{w})&lt;/script&gt;
+
+&lt;p&gt;The Jacobian \( \nabla J(\mathbf{w}) \) is given by –&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\nabla J(\mathbf{w}) =  \mathbf{(X^\intercal X \cdot w)}^\intercal + \mathbf{w^\intercal \cdot X^\intercal \cdot X} -\lambda \mathbf{w^\intercal} - \lambda \mathbf{w^\intercal}&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\nabla J(\mathbf{w}) =  2\mathbf{(X^\intercal X \cdot w)}^\intercal -2\lambda \mathbf{w^\intercal}&lt;/script&gt;
+
+&lt;p&gt;The maxima will occur when \( \nabla J(\mathbf{w}) = 0 \).&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;2\mathbf{(X^\intercal X \cdot w)}^\intercal -2\lambda \mathbf{w^\intercal} = 0&lt;/script&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathbf{(X^\intercal X \cdot w)}^\intercal = \lambda \mathbf{w^\intercal}&lt;/script&gt;
+
+&lt;p&gt;Taking transpose on both sides we get –&lt;/p&gt;
+
+&lt;script type=&quot;math/tex; mode=display&quot;&gt;\mathbf{X^\intercal X \cdot w} = \lambda \mathbf{w} \label{result}&lt;/script&gt;
+
+&lt;p&gt;From the last equation, it is easy to see that the orthogonal basis vectors are the eigenvectors of the scatter matrix \( \mathbf{(X^\intercal X)} \) . This can be conveniently implemented in MATLAB using –&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eigvec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eigval&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;eig&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;X&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;*X)&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;where &lt;code&gt;eigvec&lt;/code&gt; are the eigenvectors and &lt;code&gt;eigval&lt;/code&gt; are the eigenvectors.&lt;/p&gt;
+
+&lt;p&gt;Using PCA, we will get a set of atmost \( d \) eigenvectors with their corresponding non-zero eigenvalue. The eigenvalue represents how much information about the data is represented by a principal component. The greater the eigenvalue – the more information the principal component contains.&lt;/p&gt;
+
+&lt;h1 id=&quot;resources&quot;&gt;Resources&lt;/h1&gt;
+
+&lt;p&gt;LaTeXed notes of the blog post are available in –&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/bikz05/latexed-notes/raw/master/machine-learning/pca.tex&quot;&gt;.tex format&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/bikz05/latexed-notes/raw/master/machine-learning/pca.pdf&quot;&gt;.pdf format&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sat, 16 Jul 2016 00:00:00 -0700</pubDate>
+        <link>http://bikz05.github.io/2016/07/16/pca-vectorized-derivation.html</link>
+        <guid isPermaLink="true">http://bikz05.github.io/2016/07/16/pca-vectorized-derivation.html</guid>
+        
+        <category>pca</category>
+        
+        <category>machine learning</category>
+        
+        <category>dimensionality reduction</category>
+        
+        <category>derivation</category>
+        
+        
+        <category>pca</category>
+        
+        <category>machine learning</category>
+        
+        <category>dimensionality reduction</category>
+        
+        <category>derivation</category>
+        
+      </item>
     
       <item>
         <title>A Gentle Introduction to Robotic Grasp Planning</title>
@@ -34,7 +106,7 @@
 @bikz05&lt;/p&gt;
 
 </description>
-        <pubDate>Fri, 05 Feb 2016 00:00:00 -0500</pubDate>
+        <pubDate>Fri, 05 Feb 2016 00:00:00 -0800</pubDate>
         <link>http://bikz05.github.io/2016/02/05/a-gentle-introduction-to-grasp-planning.html</link>
         <guid isPermaLink="true">http://bikz05.github.io/2016/02/05/a-gentle-introduction-to-grasp-planning.html</guid>
         
@@ -192,7 +264,7 @@ ipython notebook&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;/ol&gt;
 
 </description>
-        <pubDate>Mon, 27 Jul 2015 00:00:00 -0400</pubDate>
+        <pubDate>Mon, 27 Jul 2015 00:00:00 -0700</pubDate>
         <link>http://bikz05.github.io/2015/07/27/installing-caffe-on-ubuntu.html</link>
         <guid isPermaLink="true">http://bikz05.github.io/2015/07/27/installing-caffe-on-ubuntu.html</guid>
         
@@ -315,7 +387,7 @@ mv bvlc_googlenet.caffemodel &amp;lt;path to Caffe installation&amp;gt;/caffe/mo
 
 &lt;h3 id=&quot;update---check-out-my-new-post-on-caffe-installation-on-ubuntu-1404-cpu20150703installing-caffe-on-ubuntuhtml&quot;&gt;UPDATE - Check out my new post on &lt;a href=&quot;/2015/07/03/installing-caffe-on-ubuntu.html&quot;&gt;Caffe Installation on Ubuntu 14.04 (CPU)&lt;/a&gt;.&lt;/h3&gt;
 </description>
-        <pubDate>Fri, 03 Jul 2015 00:00:00 -0400</pubDate>
+        <pubDate>Fri, 03 Jul 2015 00:00:00 -0700</pubDate>
         <link>http://bikz05.github.io/2015/07/03/google-inceptionism.html</link>
         <guid isPermaLink="true">http://bikz05.github.io/2015/07/03/google-inceptionism.html</guid>
         
@@ -628,7 +700,7 @@ Next, we append the histogram to the list &lt;code&gt;X_test&lt;/code&gt;in line
 &lt;script async=&quot;&quot; defer=&quot;&quot; id=&quot;github-bjs&quot; src=&quot;https://buttons.github.io/buttons.js&quot;&gt;&lt;/script&gt;
 
 </description>
-        <pubDate>Sat, 30 May 2015 00:00:00 -0400</pubDate>
+        <pubDate>Sat, 30 May 2015 00:00:00 -0700</pubDate>
         <link>http://bikz05.github.io/2015/05/30/local-binary-patterns.html</link>
         <guid isPermaLink="true">http://bikz05.github.io/2015/05/30/local-binary-patterns.html</guid>
         
@@ -891,7 +963,7 @@ Next, we append the histogram to the list &lt;code&gt;X_test&lt;/code&gt;in line
 &lt;/span&gt; &lt;/p&gt;
 
 </description>
-        <pubDate>Tue, 24 Feb 2015 07:54:14 -0500</pubDate>
+        <pubDate>Tue, 24 Feb 2015 04:54:14 -0800</pubDate>
         <link>http://bikz05.github.io/2015/02/24/handwritten-digit-recognition-using-opencv-sklearn-and-python.html</link>
         <guid isPermaLink="true">http://bikz05.github.io/2015/02/24/handwritten-digit-recognition-using-opencv-sklearn-and-python.html</guid>
         
@@ -970,7 +1042,7 @@ Next, we append the histogram to the list &lt;code&gt;X_test&lt;/code&gt;in line
 &lt;/ul&gt;
 
 </description>
-        <pubDate>Sat, 07 Feb 2015 05:36:56 -0500</pubDate>
+        <pubDate>Sat, 07 Feb 2015 02:36:56 -0800</pubDate>
         <link>http://bikz05.github.io/2015/02/07/caveat-thresholding-hue-component.html</link>
         <guid isPermaLink="true">http://bikz05.github.io/2015/02/07/caveat-thresholding-hue-component.html</guid>
         
@@ -1194,7 +1266,7 @@ Out of the 11 images for each individual (12 for the first individual), we will
   &lt;/li&gt;
 &lt;/ol&gt;
 </description>
-        <pubDate>Tue, 03 Feb 2015 00:00:00 -0500</pubDate>
+        <pubDate>Tue, 03 Feb 2015 00:00:00 -0800</pubDate>
         <link>http://bikz05.github.io/2015/02/03/face-recognition-using-opencv.html</link>
         <guid isPermaLink="true">http://bikz05.github.io/2015/02/03/face-recognition-using-opencv.html</guid>
         
@@ -1239,7 +1311,7 @@ Out of the 11 images for each individual (12 for the first individual), we will
 
 &lt;p&gt;Alternatively, nVidia also provides a suite of developing tools — &lt;a href=&quot;http://developer.nvidia.com/tegra-android-development-pack&quot;&gt;TADP&lt;/a&gt;. The advantage of TADP over the piece-by-piece method is that you don’t need to follow the often perplexing task of setting up the development environment. The default installation will download a lot of superfluous packages that are not needed (The download size can be greater than 2GB and on slow internet connections, it can turn into a prolonged activity.), rather select the packages manually at the time of download (A dialog box will appear, asking you to select either Complete, Custom or Manually.)&lt;/p&gt;
 </description>
-        <pubDate>Sat, 24 Jan 2015 11:45:59 -0500</pubDate>
+        <pubDate>Sat, 24 Jan 2015 08:45:59 -0800</pubDate>
         <link>http://bikz05.github.io/2015/01/24/setting-up-opencv-library-in-eclipse-for-android-development.html</link>
         <guid isPermaLink="true">http://bikz05.github.io/2015/01/24/setting-up-opencv-library-in-eclipse-for-android-development.html</guid>
         
@@ -1377,7 +1449,7 @@ Out of the 11 images for each individual (12 for the first individual), we will
   &lt;li&gt;&lt;a href=&quot;http://nbviewer.ipython.org/gist/bikz05/323dc9e1167689582626&quot;&gt;View the Notebook using NB Viewer&lt;/a&gt; {GIST DOWNLOAD AVAILABLE HERE]&lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Wed, 21 Jan 2015 13:49:40 -0500</pubDate>
+        <pubDate>Wed, 21 Jan 2015 10:49:40 -0800</pubDate>
         <link>http://bikz05.github.io/2015/01/21/adaptive-thresholding.html</link>
         <guid isPermaLink="true">http://bikz05.github.io/2015/01/21/adaptive-thresholding.html</guid>
         
@@ -1403,134 +1475,6 @@ Out of the 11 images for each individual (12 for the first individual), we will
         <category>adaptive threshold</category>
         
         <category>thresholding</category>
-        
-      </item>
-    
-      <item>
-        <title>OCR using Tesseract on Ubuntu 14.04</title>
-        <description>&lt;p&gt;In this tutorial, I will enumerate the steps needed to perform OCR using Google’s Open Source OCR engine &lt;a href=&quot;https://code.google.com/p/tesseract-ocr/&quot;&gt;Tesseract&lt;/a&gt;. It was developed initially at HP Labs.&lt;/p&gt;
-
-&lt;h2 id=&quot;installation&quot;&gt;Installation&lt;/h2&gt;
-
-&lt;p&gt;&lt;em&gt;Install the dependencies.&lt;/em&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;sudo apt-get install libpng-dev libjpeg-dev libtiff-dev zlib1g-dev 
-sudo apt-get install gcc g++ 
-sudo apt-get install autoconf automake libtool checkinstall&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;em&gt;We need image processing toolkit Leptonica to compile Tesseract, otherwise unlike older versions it will not compile.&lt;/em&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~
-wget http://www.leptonica.org/source/leptonica-1.69.tar.gz
-tar -zxvf leptonica-1.69.tar.gz
-&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;leptonica-1.69
-./configure
-make
-sudo checkinstall
-sudo ldconfig&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;em&gt;Compile and install Tesseract.&lt;/em&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nb&quot;&gt;cd&lt;/span&gt; ~ 
-wget https://tesseract-ocr.googlecode.com/files/tesseract-ocr-3.02.02.tar.gz
-tar -zxvf tesseract-ocr-3.02.02.tar.gz
-&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;tesseract-ocr
-./autogen.sh
-./configure
-make &lt;span class=&quot;c&quot;&gt;# (this may take a while)&lt;/span&gt;
-sudo make install
-sudo ldconfig&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;em&gt;Get and install the English language data.&lt;/em&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;wget&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;https&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tesseract&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ocr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;googlecode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;files&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tesseract&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ocr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;3.02&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eng&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gz&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;tar&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;zxvf&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;tesseract&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ocr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;3.02&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;eng&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tar&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;gz&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;sudo&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mv&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;./&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tesseract&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ocr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tessdata&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/*&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;usr&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;local&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;share&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;tessdata&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;This is it!! We are done with installing Tesseract on Ubuntu. Now, let’s test it on a image.&lt;/p&gt;
-
-&lt;h2 id=&quot;testing-hello-world&quot;&gt;Testing “HELLO WORLD!!”&lt;/h2&gt;
-
-&lt;p&gt;Now I have got this pretty old scanned page of a poem eulogizing Sherlock.&lt;/p&gt;
-
-&lt;figure id=&quot;figure-1&quot;&gt;&lt;a href=&quot;/figures/tesseract-test.jpg&quot;&gt;&lt;img src=&quot;/figures/tesseract-test.jpg&quot; alt=&quot;Image to test&quot; /&gt;&lt;/a&gt;&lt;figcaption&gt;Figure 1: Image to test [&lt;a href=&quot;/figures/tesseract-test.jpg&quot;&gt;JPG&lt;/a&gt;]&lt;/figcaption&gt;&lt;/figure&gt;
-
-&lt;p&gt;We will run Tesseract from command line as shown below.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;tesseract image.png output&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Here -&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;&lt;code&gt;tesseract&lt;/code&gt;  - is the command.&lt;/li&gt;
-  &lt;li&gt;&lt;code&gt;image.png&lt;/code&gt;  - is the path to the image on which we are running OCR. I am assuming that &lt;code&gt;image.png&lt;/code&gt; is in &lt;code&gt;pwd&lt;/code&gt;.&lt;/li&gt;
-  &lt;li&gt;&lt;code&gt;output&lt;/code&gt;  - The output will be stored in an image text file named&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;By default &lt;code&gt;output.txt&lt;/code&gt; will be stored in the current directory.&lt;/p&gt;
-
-&lt;p&gt;Now let’s check the output in &lt;code&gt;output.txt&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;2213
-(rout wan w. suns)
-
-HERE dwell rogether still two men of note
-Who never lived and so can never die:
-How very near they seem, ye: how remote
-Tm age berm me world went all awry.
-But still the game’: afoot for rhose with ears
-Avtuned to catch the distant View-halloo:
-England is England yer, for all our fenrs—
-Only those lhlngs the heart ézlin/ex are true.
-
-A yellow fog swirls pm the window-pane
-
-A: night descends upon lhls fabled street:
-
-A lonely hansom splashes through the rain,
-
-The ghostly gas lamps ran at (Wenly feet.
-
-Here, though the world explode, these two survive,
-And it is always eighteen ninety-ﬁve.
-
-MAW. H‘ .9“ Vmczwr Snuuus-rr&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;There are a lot of misspelled words in the output file like &lt;code&gt;rogether&lt;/code&gt; instead of &lt;code&gt;together&lt;/code&gt;. These words can be corrected by simply using a Python spell checker module like &lt;a href=&quot;http://pythonhosted.org/pyenchant/&quot;&gt;PyEnchant&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&quot;additional-notes&quot;&gt;Additional Notes&lt;/h2&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Unofficial Tesseract Documentation - &lt;a href=&quot;http://fossies.org/dox/tesseract-ocr-3.02.02/&quot;&gt;Click here&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;More Language packs - &lt;a href=&quot;http://fossies.org/dox/tesseract-ocr-3.02.02/&quot;&gt;Click here&lt;/a&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;a href=&quot;http://miphol.com/muse/2013/05/install-tesseract-ocr-on-ubunt.html&quot;&gt;Installation on Ubuntu&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-</description>
-        <pubDate>Thu, 15 Jan 2015 22:01:47 -0500</pubDate>
-        <link>http://bikz05.github.io/2015/01/15/ocr-using-tesseract-on-ubuntu-14-04.html</link>
-        <guid isPermaLink="true">http://bikz05.github.io/2015/01/15/ocr-using-tesseract-on-ubuntu-14-04.html</guid>
-        
-        <category>computer vision</category>
-        
-        <category>image processing</category>
-        
-        <category>installation</category>
-        
-        <category>leptonica</category>
-        
-        <category>ocr</category>
-        
-        <category>terminal</category>
-        
-        <category>tesseract</category>
-        
-        
-        <category>python</category>
-        
-        <category>ocr</category>
-        
-        <category>tesseract</category>
         
       </item>
     
