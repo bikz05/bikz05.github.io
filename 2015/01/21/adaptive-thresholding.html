@@ -23,7 +23,7 @@
 ">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://bikz05.github.io/2015/01/21/adaptive-thresholding.html">
+    <link rel="canonical" href="http://localhost:4000/2015/01/21/adaptive-thresholding.html">
 </head>
 
 
@@ -161,6 +161,10 @@ font-family: 'Roboto', sans-serif;
 	  
 	
 	  
+	  <a class="page-link" href="/robotics-links/">Robotics Links</a>
+	  
+	
+	  
 	
 	  
 	
@@ -240,99 +244,99 @@ font-family: 'Roboto', sans-serif;
 
 <h2 id="import-the-required-modules">Import the required modules</h2>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">%</span><span class="n">pylab</span> <span class="n">inline</span>
-<span class="kn">import</span> <span class="nn">cv2</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">%</span><span class="n">pylab</span> <span class="n">inline</span>
+<span class="kn">import</span> <span class="nn">cv2</span></code></pre></figure>
 
 <h2 id="read-the-input-image">Read the input image</h2>
 
 <p>First of all read the image, then convert the image to grayscale and finally display the image.</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">im</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="s">&quot;/home/bikz05/Desktop/image.jpg&quot;</span><span class="p">)</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">im</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="s">"/home/bikz05/Desktop/image.jpg"</span><span class="p">)</span>
 <span class="n">im_gray</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_RGB2GRAY</span><span class="p">)</span>
-<span class="n">axis</span><span class="p">(</span><span class="s">&quot;off&quot;</span><span class="p">)</span>
-<span class="n">title</span><span class="p">(</span><span class="s">&quot;Input Image&quot;</span><span class="p">)</span>
-<span class="n">imshow</span><span class="p">(</span><span class="n">im_gray</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s">&#39;gray&#39;</span><span class="p">)</span>
-<span class="n">show</span><span class="p">()</span></code></pre></div>
+<span class="n">axis</span><span class="p">(</span><span class="s">"off"</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s">"Input Image"</span><span class="p">)</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">im_gray</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s">'gray'</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span></code></pre></figure>
 
 <figure id="figure-1"><a href="/figures/original-thresholding.png"><img src="/figures/original-thresholding.png" alt="Original Image" /></a><figcaption>Figure 1: Original Image [<a href="/figures/original-thresholding.png">PNG</a>]</figcaption></figure>
 
 <h2 id="fixed-thresholding">Fixed thresholding</h2>
 
-<p>We will first perform fixed thresholding on the input image. Fixed Thresholding is done using the function <code>cv2.threshold</code>. The signature of <code>cv2.threshold</code> is -</p>
+<p>We will first perform fixed thresholding on the input image. Fixed Thresholding is done using the function <code class="highlighter-rouge">cv2.threshold</code>. The signature of <code class="highlighter-rouge">cv2.threshold</code> is -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">thresh</span><span class="p">,</span> <span class="n">maxval</span><span class="p">,</span> <span class="nb">type</span><span class="p">[,</span> <span class="n">dst</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">retval</span><span class="p">,</span> <span class="n">dst</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">thresh</span><span class="p">,</span> <span class="n">maxval</span><span class="p">,</span> <span class="nb">type</span><span class="p">[,</span> <span class="n">dst</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">retval</span><span class="p">,</span> <span class="n">dst</span></code></pre></figure>
 
 <p>Here,</p>
 
 <ol>
-  <li><code>src</code> is the input image.</li>
-  <li><code>thresh</code> is the threshold value.</li>
-  <li><code>maxval</code> is the maximum value that can be assigned to the output.</li>
-  <li><code>type</code> is the type of thresholding.</li>
-  <li><code>dst</code> is the destination image</li>
+  <li><code class="highlighter-rouge">src</code> is the input image.</li>
+  <li><code class="highlighter-rouge">thresh</code> is the threshold value.</li>
+  <li><code class="highlighter-rouge">maxval</code> is the maximum value that can be assigned to the output.</li>
+  <li><code class="highlighter-rouge">type</code> is the type of thresholding.</li>
+  <li><code class="highlighter-rouge">dst</code> is the destination image</li>
 </ol>
 
-<p>In the example, the threshold value is set to 50 and the threshold type is <code>cv2.THRESH_BINARY</code> i.e. any value that is greater than 50 is set to 255 and any value less than 55 is set to 0.</p>
+<p>In the example, the threshold value is set to 50 and the threshold type is <code class="highlighter-rouge">cv2.THRESH_BINARY</code> i.e. any value that is greater than 50 is set to 255 and any value less than 55 is set to 0.</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">retval</span><span class="p">,</span> <span class="n">im_at_fixed</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">im_gray</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)</span>
-<span class="n">axis</span><span class="p">(</span><span class="s">&quot;off&quot;</span><span class="p">)</span>
-<span class="n">title</span><span class="p">(</span><span class="s">&quot;Fixed Thresholding&quot;</span><span class="p">)</span>
-<span class="n">imshow</span><span class="p">(</span><span class="n">im_at_fixed</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s">&#39;gray&#39;</span><span class="p">)</span>
-<span class="n">show</span><span class="p">()</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">retval</span><span class="p">,</span> <span class="n">im_at_fixed</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">im_gray</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">)</span>
+<span class="n">axis</span><span class="p">(</span><span class="s">"off"</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s">"Fixed Thresholding"</span><span class="p">)</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">im_at_fixed</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s">'gray'</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span></code></pre></figure>
 
 <figure id="figure-2"><a href="/figures/fixed-thresholding-1.png"><img src="/figures/fixed-thresholding-1.png" alt="Results after fixed thresholding" /></a><figcaption>Figure 2: Results after fixed thresholding [<a href="/figures/fixed-thresholding-1.png">PNG</a>]</figcaption></figure>
 
 <h2 id="adaptive-thresholding-with-mean-weighted-average">Adaptive Thresholding with mean weighted average</h2>
 
-<p>Adaptive Thresholding with mean weighted average is done using the function <code>cv2.adaptiveThreshold</code>. The signature of the function is -</p>
+<p>Adaptive Thresholding with mean weighted average is done using the function <code class="highlighter-rouge">cv2.adaptiveThreshold</code>. The signature of the function is -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cv2</span><span class="o">.</span><span class="n">adaptiveThreshold</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">maxValue</span><span class="p">,</span> <span class="n">adaptiveMethod</span><span class="p">,</span> <span class="n">thresholdType</span><span class="p">,</span> <span class="n">blockSize</span><span class="p">,</span> <span class="n">C</span><span class="p">[,</span> <span class="n">dst</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">dst</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cv2</span><span class="o">.</span><span class="n">adaptiveThreshold</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">maxValue</span><span class="p">,</span> <span class="n">adaptiveMethod</span><span class="p">,</span> <span class="n">thresholdType</span><span class="p">,</span> <span class="n">blockSize</span><span class="p">,</span> <span class="n">C</span><span class="p">[,</span> <span class="n">dst</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">dst</span></code></pre></figure>
 
 <p>Here,</p>
 
 <ol>
-  <li><code>src</code>  is the input image.</li>
-  <li><code>maxval</code> is the maximum value that can be assigned to the output.</li>
-  <li><code>adaptiveMethod</code> is set to <code>cv2.ADAPTIVE_THRESH_MEAN_C</code>  for mean weighted average and to <code>cv2.ADAPTIVE_THRESH_GAUSSIAN_C</code> for gaussian weighted average.</li>
-  <li><code>thresholdType</code> - the type of thresholding</li>
-  <li><code>blockSize</code>  - value of <code>b</code></li>
-  <li><code>C</code> is the constant that is subtracted from the threshold value calculated for each pixel</li>
-  <li><code>dst</code> is the destination image</li>
+  <li><code class="highlighter-rouge">src</code>  is the input image.</li>
+  <li><code class="highlighter-rouge">maxval</code> is the maximum value that can be assigned to the output.</li>
+  <li><code class="highlighter-rouge">adaptiveMethod</code> is set to <code class="highlighter-rouge">cv2.ADAPTIVE_THRESH_MEAN_C</code>  for mean weighted average and to <code class="highlighter-rouge">cv2.ADAPTIVE_THRESH_GAUSSIAN_C</code> for gaussian weighted average.</li>
+  <li><code class="highlighter-rouge">thresholdType</code> - the type of thresholding</li>
+  <li><code class="highlighter-rouge">blockSize</code>  - value of <code class="highlighter-rouge">b</code></li>
+  <li><code class="highlighter-rouge">C</code> is the constant that is subtracted from the threshold value calculated for each pixel</li>
+  <li><code class="highlighter-rouge">dst</code> is the destination image</li>
 </ol>
 
-<p>For the example, the value of <code>b</code> is 5 and the constant value is set to 10.</p>
+<p>For the example, the value of <code class="highlighter-rouge">b</code> is 5 and the constant value is set to 10.</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">im_at_mean</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">adaptiveThreshold</span><span class="p">(</span><span class="n">im_gray</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">ADAPTIVE_THRESH_MEAN_C</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-<span class="n">axis</span><span class="p">(</span><span class="s">&quot;off&quot;</span><span class="p">)</span>
-<span class="n">title</span><span class="p">(</span><span class="s">&quot;Adaptive Thresholding with mean weighted average&quot;</span><span class="p">)</span>
-<span class="n">imshow</span><span class="p">(</span><span class="n">im_at_mean</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s">&#39;gray&#39;</span><span class="p">)</span>
-<span class="n">show</span><span class="p">()</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">im_at_mean</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">adaptiveThreshold</span><span class="p">(</span><span class="n">im_gray</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">ADAPTIVE_THRESH_MEAN_C</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">axis</span><span class="p">(</span><span class="s">"off"</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s">"Adaptive Thresholding with mean weighted average"</span><span class="p">)</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">im_at_mean</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s">'gray'</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span></code></pre></figure>
 
 <figure id="figure-3"><a href="/figures/adaptive-thresholding-1.png"><img src="/figures/adaptive-thresholding-1.png" alt="Adaptive Thresholding with mean weighted average" /></a><figcaption>Figure 3: Adaptive Thresholding with mean weighted average [<a href="/figures/adaptive-thresholding-1.png">PNG</a>]</figcaption></figure>
 
 <h2 id="adaptive-thresholding-with-gaussian-weighted-average">Adaptive Thresholding with gaussian weighted average</h2>
 
-<p>Adaptive Thresholding with gaussian weighted average is done using the function <code>cv2.adaptiveThreshold</code>. The signature of the function is -</p>
+<p>Adaptive Thresholding with gaussian weighted average is done using the function <code class="highlighter-rouge">cv2.adaptiveThreshold</code>. The signature of the function is -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cv2</span><span class="o">.</span><span class="n">adaptiveThreshold</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">maxValue</span><span class="p">,</span> <span class="n">adaptiveMethod</span><span class="p">,</span> <span class="n">thresholdType</span><span class="p">,</span> <span class="n">blockSize</span><span class="p">,</span> <span class="n">C</span><span class="p">[,</span> <span class="n">dst</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">dst</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cv2</span><span class="o">.</span><span class="n">adaptiveThreshold</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">maxValue</span><span class="p">,</span> <span class="n">adaptiveMethod</span><span class="p">,</span> <span class="n">thresholdType</span><span class="p">,</span> <span class="n">blockSize</span><span class="p">,</span> <span class="n">C</span><span class="p">[,</span> <span class="n">dst</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">dst</span></code></pre></figure>
 
 <p>Here,</p>
 
 <ol>
-  <li><code>src</code> is the input image.</li>
-  <li><code>maxval</code> is the maximum value that can be assigned to the output.</li>
-  <li><code>adaptiveMethod</code> is set to <code>cv2.ADAPTIVE_THRESH_MEAN_C</code>  for mean weighted average and to <code>cv2.ADAPTIVE_THRESH_GAUSSIAN_C</code>  for gaussian weighted average.</li>
-  <li><code>thresholdType</code> - the type of thresholding</li>
-  <li><code>blockSize</code>  is the value of <code>b</code></li>
-  <li><code>C</code> is the constant that is subtracted from the threshold value calculated for each pixel</li>
-  <li><code>dst</code>  is the destination image</li>
+  <li><code class="highlighter-rouge">src</code> is the input image.</li>
+  <li><code class="highlighter-rouge">maxval</code> is the maximum value that can be assigned to the output.</li>
+  <li><code class="highlighter-rouge">adaptiveMethod</code> is set to <code class="highlighter-rouge">cv2.ADAPTIVE_THRESH_MEAN_C</code>  for mean weighted average and to <code class="highlighter-rouge">cv2.ADAPTIVE_THRESH_GAUSSIAN_C</code>  for gaussian weighted average.</li>
+  <li><code class="highlighter-rouge">thresholdType</code> - the type of thresholding</li>
+  <li><code class="highlighter-rouge">blockSize</code>  is the value of <code class="highlighter-rouge">b</code></li>
+  <li><code class="highlighter-rouge">C</code> is the constant that is subtracted from the threshold value calculated for each pixel</li>
+  <li><code class="highlighter-rouge">dst</code>  is the destination image</li>
 </ol>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">im_at_gauss</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">adaptiveThreshold</span><span class="p">(</span><span class="n">im_gray</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">ADAPTIVE_THRESH_GAUSSIAN_C</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
-<span class="n">axis</span><span class="p">(</span><span class="s">&quot;off&quot;</span><span class="p">)</span>
-<span class="n">title</span><span class="p">(</span><span class="s">&quot;Adaptive Thresholding with gaussian weighted average&quot;</span><span class="p">)</span>
-<span class="n">imshow</span><span class="p">(</span><span class="n">im_at_gauss</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s">&#39;gray&#39;</span><span class="p">)</span>
-<span class="n">show</span><span class="p">()</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">im_at_gauss</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">adaptiveThreshold</span><span class="p">(</span><span class="n">im_gray</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">ADAPTIVE_THRESH_GAUSSIAN_C</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">THRESH_BINARY</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">axis</span><span class="p">(</span><span class="s">"off"</span><span class="p">)</span>
+<span class="n">title</span><span class="p">(</span><span class="s">"Adaptive Thresholding with gaussian weighted average"</span><span class="p">)</span>
+<span class="n">imshow</span><span class="p">(</span><span class="n">im_at_gauss</span><span class="p">,</span> <span class="n">cmap</span> <span class="o">=</span> <span class="s">'gray'</span><span class="p">)</span>
+<span class="n">show</span><span class="p">()</span></code></pre></figure>
 
 <figure id="figure-4"><a href="/figures/adaptive-thresholding-2.png"><img src="/figures/adaptive-thresholding-2.png" alt="Adaptive Thresholding with gaussian weighted average" /></a><figcaption>Figure 4: Adaptive Thresholding with gaussian weighted average [<a href="/figures/adaptive-thresholding-2.png">PNG</a>]</figcaption></figure>
 

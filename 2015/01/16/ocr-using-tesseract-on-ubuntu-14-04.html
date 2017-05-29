@@ -23,7 +23,7 @@
 ">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://bikz05.github.io/2015/01/16/ocr-using-tesseract-on-ubuntu-14-04.html">
+    <link rel="canonical" href="http://localhost:4000/2015/01/16/ocr-using-tesseract-on-ubuntu-14-04.html">
 </head>
 
 
@@ -153,6 +153,24 @@ font-family: 'Roboto', sans-serif;
 	  
 	
 	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	  <a class="page-link" href="/robotics-links/">Robotics Links</a>
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
 	  <a class="page-link" href="/contact/">Contact</a>
 	  
 	
@@ -170,9 +188,19 @@ font-family: 'Roboto', sans-serif;
 
     <div class="page-content">
       <div class="wrapper">
-        <!--<script type="text/javascript"
+        <!--<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
+
 -->
 <div class="post">
   <header class="post-header">
@@ -204,24 +232,24 @@ font-family: 'Roboto', sans-serif;
 
 <p><em>Install the dependencies.</em></p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install libpng-dev libjpeg-dev libtiff-dev zlib1g-dev 
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install libpng-dev libjpeg-dev libtiff-dev zlib1g-dev 
 sudo apt-get install gcc g++ 
-sudo apt-get install autoconf automake libtool checkinstall</code></pre></div>
+sudo apt-get install autoconf automake libtool checkinstall</code></pre></figure>
 
 <p><em>We need image processing toolkit Leptonica to compile Tesseract, otherwise unlike older versions it will not compile.</em></p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~
 wget http://www.leptonica.org/source/leptonica-1.69.tar.gz
 tar -zxvf leptonica-1.69.tar.gz
 <span class="nb">cd </span>leptonica-1.69
 ./configure
 make
 sudo checkinstall
-sudo ldconfig</code></pre></div>
+sudo ldconfig</code></pre></figure>
 
 <p><em>Compile and install Tesseract.</em></p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~ 
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">cd</span> ~ 
 wget https://tesseract-ocr.googlecode.com/files/tesseract-ocr-3.02.02.tar.gz
 tar -zxvf tesseract-ocr-3.02.02.tar.gz
 <span class="nb">cd </span>tesseract-ocr
@@ -229,13 +257,13 @@ tar -zxvf tesseract-ocr-3.02.02.tar.gz
 ./configure
 make <span class="c"># (this may take a while)</span>
 sudo make install
-sudo ldconfig</code></pre></div>
+sudo ldconfig</code></pre></figure>
 
 <p><em>Get and install the English language data.</em></p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">tesseract</span><span class="o">-</span><span class="n">ocr</span><span class="o">.</span><span class="n">googlecode</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">files</span><span class="o">/</span><span class="n">tesseract</span><span class="o">-</span><span class="n">ocr</span><span class="o">-</span><span class="mf">3.02</span><span class="o">.</span><span class="n">eng</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">tesseract</span><span class="o">-</span><span class="n">ocr</span><span class="o">.</span><span class="n">googlecode</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">files</span><span class="o">/</span><span class="n">tesseract</span><span class="o">-</span><span class="n">ocr</span><span class="o">-</span><span class="mf">3.02</span><span class="o">.</span><span class="n">eng</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
 <span class="n">tar</span> <span class="o">-</span><span class="n">zxvf</span> <span class="n">tesseract</span><span class="o">-</span><span class="n">ocr</span><span class="o">-</span><span class="mf">3.02</span><span class="o">.</span><span class="n">eng</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
-<span class="n">sudo</span> <span class="n">mv</span> <span class="o">./</span><span class="n">tesseract</span><span class="o">-</span><span class="n">ocr</span><span class="o">/</span><span class="n">tessdata</span><span class="o">/*</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">tessdata</span><span class="o">/</span></code></pre></div>
+<span class="n">sudo</span> <span class="n">mv</span> <span class="o">./</span><span class="n">tesseract</span><span class="o">-</span><span class="n">ocr</span><span class="o">/</span><span class="n">tessdata</span><span class="o">/*</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">tessdata</span><span class="o">/</span></code></pre></figure>
 
 <p>This is it!! We are done with installing Tesseract on Ubuntu. Now, let’s test it on a image.</p>
 
@@ -247,21 +275,21 @@ sudo ldconfig</code></pre></div>
 
 <p>We will run Tesseract from command line as shown below.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">tesseract image.png output</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">tesseract image.png output</code></pre></figure>
 
 <p>Here -</p>
 
 <ol>
-  <li><code>tesseract</code>  - is the command.</li>
-  <li><code>image.png</code>  - is the path to the image on which we are running OCR. I am assuming that <code>image.png</code> is in <code>pwd</code>.</li>
-  <li><code>output</code>  - The output will be stored in an image text file named</li>
+  <li><code class="highlighter-rouge">tesseract</code>  - is the command.</li>
+  <li><code class="highlighter-rouge">image.png</code>  - is the path to the image on which we are running OCR. I am assuming that <code class="highlighter-rouge">image.png</code> is in <code class="highlighter-rouge">pwd</code>.</li>
+  <li><code class="highlighter-rouge">output</code>  - The output will be stored in an image text file named</li>
 </ol>
 
-<p>By default <code>output.txt</code> will be stored in the current directory.</p>
+<p>By default <code class="highlighter-rouge">output.txt</code> will be stored in the current directory.</p>
 
-<p>Now let’s check the output in <code>output.txt</code></p>
+<p>Now let’s check the output in <code class="highlighter-rouge">output.txt</code></p>
 
-<div class="highlight"><pre><code class="language-text" data-lang="text">2213
+<figure class="highlight"><pre><code class="language-text" data-lang="text">2213
 (rout wan w. suns)
 
 HERE dwell rogether still two men of note
@@ -284,9 +312,9 @@ The ghostly gas lamps ran at (Wenly feet.
 Here, though the world explode, these two survive,
 And it is always eighteen ninety-ﬁve.
 
-MAW. H‘ .9“ Vmczwr Snuuus-rr</code></pre></div>
+MAW. H‘ .9“ Vmczwr Snuuus-rr</code></pre></figure>
 
-<p>There are a lot of misspelled words in the output file like <code>rogether</code> instead of <code>together</code>. These words can be corrected by simply using a Python spell checker module like <a href="http://pythonhosted.org/pyenchant/">PyEnchant</a>.</p>
+<p>There are a lot of misspelled words in the output file like <code class="highlighter-rouge">rogether</code> instead of <code class="highlighter-rouge">together</code>. These words can be corrected by simply using a Python spell checker module like <a href="http://pythonhosted.org/pyenchant/">PyEnchant</a>.</p>
 
 <h2 id="additional-notes">Additional Notes</h2>
 

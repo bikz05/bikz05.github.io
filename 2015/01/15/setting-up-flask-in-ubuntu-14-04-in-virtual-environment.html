@@ -23,7 +23,7 @@
 ">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://bikz05.github.io/2015/01/15/setting-up-flask-in-ubuntu-14-04-in-virtual-environment.html">
+    <link rel="canonical" href="http://localhost:4000/2015/01/15/setting-up-flask-in-ubuntu-14-04-in-virtual-environment.html">
 </head>
 
 
@@ -161,6 +161,10 @@ font-family: 'Roboto', sans-serif;
 	  
 	
 	  
+	  <a class="page-link" href="/robotics-links/">Robotics Links</a>
+	  
+	
+	  
 	
 	  
 	
@@ -231,65 +235,65 @@ font-family: 'Roboto', sans-serif;
 
 <p>Let’s start by creating a virtual environment -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cd</span> <span class="o">~</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cd</span> <span class="o">~</span>
 <span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">virtualenv</span> 
-<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span></code></pre></div>
+<span class="n">sudo</span> <span class="n">apt</span><span class="o">-</span><span class="n">get</span> <span class="n">install</span> <span class="n">python</span><span class="o">-</span><span class="n">pip</span></code></pre></figure>
 
-<p>To check if <code>virtualenv</code> is correctly installed, type -</p>
+<p>To check if <code class="highlighter-rouge">virtualenv</code> is correctly installed, type -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">virtualenv</span> <span class="o">--</span><span class="n">version</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">virtualenv</span> <span class="o">--</span><span class="n">version</span></code></pre></figure>
 
 <p>At the time this post was written, the output was -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="mf">1.11</span><span class="o">.</span><span class="mi">4</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="mf">1.11</span><span class="o">.</span><span class="mi">4</span></code></pre></figure>
 
-<p>Now let’s make a directory <code>flask-application</code> where we will store our project.</p>
+<p>Now let’s make a directory <code class="highlighter-rouge">flask-application</code> where we will store our project.</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">mkdir</span> <span class="n">flask</span><span class="o">-</span><span class="n">application</span>
-<span class="n">cd</span> <span class="n">flask</span><span class="o">-</span><span class="n">application</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">mkdir</span> <span class="n">flask</span><span class="o">-</span><span class="n">application</span>
+<span class="n">cd</span> <span class="n">flask</span><span class="o">-</span><span class="n">application</span></code></pre></figure>
 
-<p>It time to create to virtual environment <code>flask-env</code>, where we will install flask.</p>
+<p>It time to create to virtual environment <code class="highlighter-rouge">flask-env</code>, where we will install flask.</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">virtualenv</span> <span class="n">flask</span><span class="o">-</span><span class="n">env</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">virtualenv</span> <span class="n">flask</span><span class="o">-</span><span class="n">env</span></code></pre></figure>
 
 <p>You will see the following output on the terminal -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">New</span> <span class="n">python</span> <span class="n">executable</span> <span class="ow">in</span> <span class="n">flask</span><span class="o">-</span><span class="n">env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span>
-<span class="n">Installing</span> <span class="n">setuptools</span><span class="p">,</span> <span class="n">pip</span><span class="o">...</span><span class="n">done</span><span class="o">.</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">New</span> <span class="n">python</span> <span class="n">executable</span> <span class="ow">in</span> <span class="n">flask</span><span class="o">-</span><span class="n">env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">python</span>
+<span class="n">Installing</span> <span class="n">setuptools</span><span class="p">,</span> <span class="n">pip</span><span class="o">...</span><span class="n">done</span><span class="o">.</span></code></pre></figure>
 
 <p>We have successfully created our virtual environment, now let’s activate it using the command below -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">source</span> <span class="n">flask</span><span class="o">-</span><span class="n">env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">source</span> <span class="n">flask</span><span class="o">-</span><span class="n">env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span></code></pre></figure>
 
-<p>You will now notice that on left side of your command prompt, <code>(flask-env)</code> appears. So now, when you install a package, it will only be accessible from the virtual environment. When you exit the virtual environment, you can no longer access any package you install inside the virtual environment. It is time to install flask. We will use pip to install the package -</p>
+<p>You will now notice that on left side of your command prompt, <code class="highlighter-rouge">(flask-env)</code> appears. So now, when you install a package, it will only be accessible from the virtual environment. When you exit the virtual environment, you can no longer access any package you install inside the virtual environment. It is time to install flask. We will use pip to install the package -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">pip</span> <span class="n">install</span> <span class="n">Flask</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">pip</span> <span class="n">install</span> <span class="n">Flask</span></code></pre></figure>
 
-<p>Let’s write a hello.py  script which prints <code>"Hello World!"</code> when we open
-<code>http://127.0.0.1:5000/</code> in the browser -</p>
+<p>Let’s write a hello.py  script which prints <code class="highlighter-rouge">"Hello World!"</code> when we open
+<code class="highlighter-rouge">http://127.0.0.1:5000/</code> in the browser -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span>
 
-<span class="nd">@app.route</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">)</span>
+<span class="nd">@app.route</span><span class="p">(</span><span class="s">"/"</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">hello</span><span class="p">():</span>
-<span class="k">return</span> <span class="s">&quot;Hello World!&quot;</span>
+<span class="k">return</span> <span class="s">"Hello World!"</span>
 
-<span class="k">if</span> <span class="p">(</span><span class="n">__name__</span> <span class="o">==</span> <span class="s">&quot;__main__&quot;</span><span class="p">):</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">__name__</span> <span class="o">==</span> <span class="s">"__main__"</span><span class="p">):</span>
 <span class="n">app</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">port</span> <span class="o">=</span> <span class="mi">5000</span><span class="p">)</span>
 
 <span class="n">Run</span> <span class="n">the</span> <span class="n">python</span> <span class="n">script</span> <span class="n">using</span> <span class="o">-</span>
 
-<span class="n">python</span> <span class="n">hello</span><span class="o">.</span><span class="n">py</span></code></pre></div>
+<span class="n">python</span> <span class="n">hello</span><span class="o">.</span><span class="n">py</span></code></pre></figure>
 
-<p>In the browser, open the url <code>http://127.0.0.1:5000/</code>. The result looks like this -</p>
+<p>In the browser, open the url <code class="highlighter-rouge">http://127.0.0.1:5000/</code>. The result looks like this -</p>
 
 <figure id="figure-1"><a href="/figures/helloWorld.png"><img src="/figures/helloWorld.png" alt="Webpage at localhost:5000" /></a><figcaption>Figure 1: Webpage at localhost:5000 [<a href="/figures/helloWorld.png">PNG</a>]</figcaption></figure>
 
 <p>To deactivate the virtual environment, type the below line in the command prompt -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">deactivate</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">deactivate</span></code></pre></figure>
 
 
   </article>

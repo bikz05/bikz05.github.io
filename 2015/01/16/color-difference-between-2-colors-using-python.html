@@ -23,7 +23,7 @@
 ">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://bikz05.github.io/2015/01/16/color-difference-between-2-colors-using-python.html">
+    <link rel="canonical" href="http://localhost:4000/2015/01/16/color-difference-between-2-colors-using-python.html">
 </head>
 
 
@@ -153,6 +153,24 @@ font-family: 'Roboto', sans-serif;
 	  
 	
 	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	  <a class="page-link" href="/robotics-links/">Robotics Links</a>
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
 	  <a class="page-link" href="/contact/">Contact</a>
 	  
 	
@@ -170,9 +188,19 @@ font-family: 'Roboto', sans-serif;
 
     <div class="page-content">
       <div class="wrapper">
-        <!--<script type="text/javascript"
+        <!--<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
+
 -->
 <div class="post">
   <header class="post-header">
@@ -214,35 +242,55 @@ font-family: 'Roboto', sans-serif;
 
 <p>For, this tutorial we will use CIE2000. If you are interested in the actual mathematics, refer to the wikipedia page. It’s is pretty easy to write your own code to compare the 2 colors, but we’ll not try reinvent the wheel. Python provides a high utility package colormath  to convert between different colorspaces, delta E comparison, density to spectral operation etc.</p>
 
-<p>Using <code>colormath</code>, we just don’t need to put in much effort to find the Delta-E metric.</p>
+<p>Using <code class="highlighter-rouge">colormath</code>, we just don’t need to put in much effort to find the Delta-E metric.</p>
 
-<p>The module <code>colormath</code> can be installed using pip -</p>
+<p>The module <code class="highlighter-rouge">colormath</code> can be installed using pip -</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install python-pip
-sudo pip install colormath</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">sudo apt-get install python-pip
+sudo pip install colormath</code></pre></figure>
 
 <p>Now, let’s write the actual code to find the difference between 2 colors.</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="lineno"> 1</span> <span class="kn">from</span> <span class="nn">colormath.color_objects</span> <span class="kn">import</span> <span class="n">sRGBColor</span><span class="p">,</span> <span class="n">LabColor</span>
-<span class="lineno"> 2</span> <span class="kn">from</span> <span class="nn">colormath.color_conversions</span> <span class="kn">import</span> <span class="n">convert_color</span>
-<span class="lineno"> 3</span> <span class="kn">from</span> <span class="nn">colormath.color_diff</span> <span class="kn">import</span> <span class="n">delta_e_cie2000</span>
-<span class="lineno"> 4</span> 
-<span class="lineno"> 5</span> <span class="c"># Red Color</span>
-<span class="lineno"> 6</span> <span class="n">color1_rgb</span> <span class="o">=</span> <span class="n">sRGBColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
-<span class="lineno"> 7</span> 
-<span class="lineno"> 8</span> <span class="c"># Blue Color</span>
-<span class="lineno"> 9</span> <span class="n">color2_rgb</span> <span class="o">=</span> <span class="n">sRGBColor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
-<span class="lineno">10</span> 
-<span class="lineno">11</span> <span class="c"># Convert from RGB to Lab Color Space</span>
-<span class="lineno">12</span> <span class="n">color1_lab</span> <span class="o">=</span> <span class="n">convert_color</span><span class="p">(</span><span class="n">color1_rgb</span><span class="p">,</span> <span class="n">LabColor</span><span class="p">);</span>
-<span class="lineno">13</span> 
-<span class="lineno">14</span> <span class="c"># Convert from RGB to Lab Color Space</span>
-<span class="lineno">15</span> <span class="n">color2_lab</span> <span class="o">=</span> <span class="n">convert_color</span><span class="p">(</span><span class="n">color2_rgb</span><span class="p">,</span> <span class="n">LabColor</span><span class="p">);</span>
-<span class="lineno">16</span> 
-<span class="lineno">17</span> <span class="c"># Find the color difference</span>
-<span class="lineno">18</span> <span class="n">delta_e</span> <span class="o">=</span> <span class="n">delta_e_cie2000</span><span class="p">(</span><span class="n">color1_lab</span><span class="p">,</span> <span class="n">color2_lab</span><span class="p">);</span>
-<span class="lineno">19</span> 
-<span class="lineno">20</span> <span class="k">print</span> <span class="s">&quot;The difference between the 2 color = &quot;</span><span class="p">,</span> <span class="n">delta_e</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></td><td class="code"><pre><span class="kn">from</span> <span class="nn">colormath.color_objects</span> <span class="kn">import</span> <span class="n">sRGBColor</span><span class="p">,</span> <span class="n">LabColor</span>
+<span class="kn">from</span> <span class="nn">colormath.color_conversions</span> <span class="kn">import</span> <span class="n">convert_color</span>
+<span class="kn">from</span> <span class="nn">colormath.color_diff</span> <span class="kn">import</span> <span class="n">delta_e_cie2000</span>
+
+<span class="c"># Red Color</span>
+<span class="n">color1_rgb</span> <span class="o">=</span> <span class="n">sRGBColor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">);</span>
+
+<span class="c"># Blue Color</span>
+<span class="n">color2_rgb</span> <span class="o">=</span> <span class="n">sRGBColor</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">);</span>
+
+<span class="c"># Convert from RGB to Lab Color Space</span>
+<span class="n">color1_lab</span> <span class="o">=</span> <span class="n">convert_color</span><span class="p">(</span><span class="n">color1_rgb</span><span class="p">,</span> <span class="n">LabColor</span><span class="p">);</span>
+
+<span class="c"># Convert from RGB to Lab Color Space</span>
+<span class="n">color2_lab</span> <span class="o">=</span> <span class="n">convert_color</span><span class="p">(</span><span class="n">color2_rgb</span><span class="p">,</span> <span class="n">LabColor</span><span class="p">);</span>
+
+<span class="c"># Find the color difference</span>
+<span class="n">delta_e</span> <span class="o">=</span> <span class="n">delta_e_cie2000</span><span class="p">(</span><span class="n">color1_lab</span><span class="p">,</span> <span class="n">color2_lab</span><span class="p">);</span>
+
+<span class="k">print</span> <span class="s">"The difference between the 2 color = "</span><span class="p">,</span> <span class="n">delta_e</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
 
 <p>I hope you liked the post, THANK YOU.</p>
 

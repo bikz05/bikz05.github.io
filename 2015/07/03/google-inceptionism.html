@@ -23,7 +23,7 @@
 ">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://bikz05.github.io/2015/07/03/google-inceptionism.html">
+    <link rel="canonical" href="http://localhost:4000/2015/07/03/google-inceptionism.html">
 </head>
 
 
@@ -161,6 +161,10 @@ font-family: 'Roboto', sans-serif;
 	  
 	
 	  
+	  <a class="page-link" href="/robotics-links/">Robotics Links</a>
+	  
+	
+	  
 	
 	  
 	
@@ -228,19 +232,19 @@ font-family: 'Roboto', sans-serif;
 
 <p>This blog post got a lot of publicity in both the Computer Vision community and print media. So yesterday, Google announced in <a href="DeepDream - a code example for visualizing Neural Networks">this</a> blog post that it had open sourced the code. The code is available on <a href="https://github.com/google/deepdream">GitHub</a>. To clone the repository, enter the below command in the terminal.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/google/deepdream.git</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/google/deepdream.git</code></pre></figure>
 
 <p>In order to run the code, there are a few dependencies -</p>
 
 <ol>
-  <li>Scientific Python Stack – <code>IPython Notebook</code>, <code>numpy</code>, <code>scipy</code>, <code>matplotlib</code>.</li>
+  <li>Scientific Python Stack – <code class="highlighter-rouge">IPython Notebook</code>, <code class="highlighter-rouge">numpy</code>, <code class="highlighter-rouge">scipy</code>, <code class="highlighter-rouge">matplotlib</code>.</li>
   <li><a href="http://caffe.berkeleyvision.org/">Caffe</a></li>
 </ol>
 
 <p>You will also need to download the GoogLeNet model.</p>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">wget http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel
-mv bvlc_googlenet.caffemodel &lt;path to Caffe installation&gt;/caffe/models/bvlc_googlenet/</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">wget http://dl.caffe.berkeleyvision.org/bvlc_googlenet.caffemodel
+mv bvlc_googlenet.caffemodel &lt;path to Caffe installation&gt;/caffe/models/bvlc_googlenet/</code></pre></figure>
 
 <p>Now let’s take a look at some of the mind blowing results!!</p>
 
@@ -286,21 +290,21 @@ mv bvlc_googlenet.caffemodel &lt;path to Caffe installation&gt;/caffe/models/bvl
 
 <figure id="figure-4"><a href="/figures/2015-07-03-google-inceptionism/0056.jpg"><img src="/figures/2015-07-03-google-inceptionism/0056.jpg" alt="Frame 56 -- TAJ MAHAL INCEPTIONISM" /></a><figcaption>Figure 4: Frame 56 -- TAJ MAHAL INCEPTIONISM [<a href="/figures/2015-07-03-google-inceptionism/0056.jpg">JPG</a>]</figcaption></figure>
 
-<p>To discover more, use the hashtag <code>#deepdream</code> on Twitter.</p>
+<p>To discover more, use the hashtag <code class="highlighter-rouge">#deepdream</code> on Twitter.</p>
 
 <p>If this wasn’t enough some researchers even released a few projects related to “INCEPTIONISM”. Here are a couple of them.</p>
 
-<h3 id="dockerized-deepdream-generate-convnet-art-in-the-cloudhttpsgithubcomvisionaiclouddream"><a href="https://github.com/VISIONAI/clouddream">Dockerized deepdream: Generate ConvNet Art in the Cloud</a></h3>
+<h3 id="dockerized-deepdream-generate-convnet-art-in-the-cloud"><a href="https://github.com/VISIONAI/clouddream">Dockerized deepdream: Generate ConvNet Art in the Cloud</a></h3>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/VISIONAI/clouddream.git</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/VISIONAI/clouddream.git</code></pre></figure>
 
 <blockquote>
   <p>Let’s make it brain-dead simple to launch your very own deepdreaming server (in the cloud, on an Ubuntu machine, Mac via Docker, and maybe even Windows if you try out Kitematic by Docker)!</p>
 </blockquote>
 
-<h3 id="cnn-vishttpsgithubcomjcjohnsoncnn-vis"><a href="https://github.com/jcjohnson/cnn-vis">cnn-vis</a></h3>
+<h3 id="cnn-vis"><a href="https://github.com/jcjohnson/cnn-vis">cnn-vis</a></h3>
 
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/jcjohnson/cnn-vis.git</code></pre></div>
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">git clone https://github.com/jcjohnson/cnn-vis.git</code></pre></figure>
 
 <blockquote>
   <p>Inspired by Google’s recent Inceptionism blog post, cnn-vis is an open-source tool that lets you use convolutional neural networks to generate images.</p>
@@ -318,9 +322,9 @@ mv bvlc_googlenet.caffemodel &lt;path to Caffe installation&gt;/caffe/models/bvl
 
 <hr />
 
-<p>A lot of people wanted to try the <code>deepdream</code> code, but were unable to setup the environment. As a follow-up, I will soon blog about setting up Caffe on Ubuntu 14.04(CPU) and running the <code>deepdream</code> code.</p>
+<p>A lot of people wanted to try the <code class="highlighter-rouge">deepdream</code> code, but were unable to setup the environment. As a follow-up, I will soon blog about setting up Caffe on Ubuntu 14.04(CPU) and running the <code class="highlighter-rouge">deepdream</code> code.</p>
 
-<h3 id="update---check-out-my-new-post-on-caffe-installation-on-ubuntu-1404-cpu20150703installing-caffe-on-ubuntuhtml">UPDATE - Check out my new post on <a href="/2015/07/03/installing-caffe-on-ubuntu.html">Caffe Installation on Ubuntu 14.04 (CPU)</a>.</h3>
+<h3 id="update---check-out-my-new-post-on-caffe-installation-on-ubuntu-1404-cpu">UPDATE - Check out my new post on <a href="/2015/07/03/installing-caffe-on-ubuntu.html">Caffe Installation on Ubuntu 14.04 (CPU)</a>.</h3>
 
   </article>
   

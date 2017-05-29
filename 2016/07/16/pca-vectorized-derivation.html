@@ -23,7 +23,7 @@
 ">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://bikz05.github.io/2016/07/16/pca-vectorized-derivation.html">
+    <link rel="canonical" href="http://localhost:4000/2016/07/16/pca-vectorized-derivation.html">
 </head>
 
 
@@ -161,6 +161,10 @@ font-family: 'Roboto', sans-serif;
 	  
 	
 	  
+	  <a class="page-link" href="/robotics-links/">Robotics Links</a>
+	  
+	
+	  
 	
 	  
 	
@@ -256,9 +260,9 @@ font-family: 'Roboto', sans-serif;
 
 <p>From the last equation, it is easy to see that the orthogonal basis vectors are the eigenvectors of the scatter matrix \( \mathbf{(X^\intercal X)} \) . This can be conveniently implemented in MATLAB using –</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">[</span><span class="n">eigvec</span><span class="p">,</span> <span class="n">eigval</span><span class="p">]</span> <span class="o">=</span> <span class="n">eig</span><span class="p">(</span><span class="n">X</span><span class="s">&#39;*X)</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">[</span><span class="n">eigvec</span><span class="p">,</span> <span class="n">eigval</span><span class="p">]</span> <span class="o">=</span> <span class="n">eig</span><span class="p">(</span><span class="n">X</span><span class="s">'*X)</span></code></pre></figure>
 
-<p>where <code>eigvec</code> are the eigenvectors and <code>eigval</code> are the eigenvectors.</p>
+<p>where <code class="highlighter-rouge">eigvec</code> are the eigenvectors and <code class="highlighter-rouge">eigval</code> are the eigenvectors.</p>
 
 <p>Using PCA, we will get a set of atmost \( d \) eigenvectors with their corresponding non-zero eigenvalue. The eigenvalue represents how much information about the data is represented by a principal component. The greater the eigenvalue – the more information the principal component contains.</p>
 

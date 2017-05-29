@@ -23,7 +23,7 @@
 ">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://bikz05.github.io/2015/01/16/saving-and-loading-keypoints-in-file-using-opencv-and-python.html">
+    <link rel="canonical" href="http://localhost:4000/2015/01/16/saving-and-loading-keypoints-in-file-using-opencv-and-python.html">
 </head>
 
 
@@ -153,6 +153,24 @@ font-family: 'Roboto', sans-serif;
 	  
 	
 	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
+	  <a class="page-link" href="/robotics-links/">Robotics Links</a>
+	  
+	
+	  
+	
+	  
+	
+	  
+	
+	  
 	  <a class="page-link" href="/contact/">Contact</a>
 	  
 	
@@ -170,9 +188,19 @@ font-family: 'Roboto', sans-serif;
 
     <div class="page-content">
       <div class="wrapper">
-        <!--<script type="text/javascript"
+        <!--<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/javascript"
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
+
 -->
 <div class="post">
   <header class="post-header">
@@ -205,51 +233,83 @@ font-family: 'Roboto', sans-serif;
   <li>Second one, load the file saved in the previous script and draw the contours on the same image used in step 1.</li>
 </ol>
 
-<p>Normally, for loading and saving data, we will use <code>cPickle</code> package. To store data in a file we use the <code>dump</code> function and to load data we use <code>loads</code> function. The problem with OpenCV’s <code>keypoint</code> type is that we cannot directly dump keypoints objects using <code>dump</code> function. If we try to do so, we’ll get an error as shown below -</p>
+<p>Normally, for loading and saving data, we will use <code class="highlighter-rouge">cPickle</code> package. To store data in a file we use the <code class="highlighter-rouge">dump</code> function and to load data we use <code class="highlighter-rouge">loads</code> function. The problem with OpenCV’s <code class="highlighter-rouge">keypoint</code> type is that we cannot directly dump keypoints objects using <code class="highlighter-rouge">dump</code> function. If we try to do so, we’ll get an error as shown below -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">pickle</span><span class="o">.</span><span class="n">PicklingError</span><span class="p">:</span> <span class="n">Can</span><span class="s">&#39;t pickle &lt;type &#39;</span><span class="n">cv2</span><span class="o">.</span><span class="n">KeyPoint</span><span class="s">&#39;&gt;: it&#39;</span><span class="n">s</span> <span class="ow">not</span> <span class="n">the</span> <span class="n">same</span> <span class="nb">object</span> <span class="k">as</span> <span class="n">cv2</span><span class="o">.</span><span class="n">KeyPoint</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">pickle</span><span class="o">.</span><span class="n">PicklingError</span><span class="p">:</span> <span class="n">Can</span><span class="s">'t pickle &lt;type '</span><span class="n">cv2</span><span class="o">.</span><span class="n">KeyPoint</span><span class="s">'&gt;: it'</span><span class="n">s</span> <span class="ow">not</span> <span class="n">the</span> <span class="n">same</span> <span class="nb">object</span> <span class="k">as</span> <span class="n">cv2</span><span class="o">.</span><span class="n">KeyPoint</span></code></pre></figure>
 
 <p>So, we need to serialize and deserialize the keypoints data.</p>
 
 <p>So, let’s write code, for the first script for saving the keypoints in a file.</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="lineno"> 1</span> <span class="kn">import</span> <span class="nn">cv2</span>
-<span class="lineno"> 2</span> <span class="kn">import</span> <span class="nn">cPickle</span>
-<span class="lineno"> 3</span> 
-<span class="lineno"> 4</span> <span class="n">im</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s">&quot;/home/bikz05/Desktop/dataset/checkered-3.jpg&quot;</span><span class="p">)</span>
-<span class="lineno"> 5</span> <span class="n">gr</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">im</span><span class="p">,</span><span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
-<span class="lineno"> 6</span> <span class="n">d</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">FeatureDetector_create</span><span class="p">(</span><span class="s">&quot;SIFT&quot;</span><span class="p">)</span>
-<span class="lineno"> 7</span> <span class="n">kp</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">gr</span><span class="p">)</span>
-<span class="lineno"> 8</span> 
-<span class="lineno"> 9</span> <span class="n">index</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="lineno">10</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">kp</span><span class="p">:</span>
-<span class="lineno">11</span> <span class="n">temp</span> <span class="o">=</span> <span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">pt</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">angle</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">response</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">octave</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">class_id</span>
-<span class="lineno">12</span> <span class="n">index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
-<span class="lineno">13</span> 
-<span class="lineno">14</span> <span class="c"># Dump the keypoints</span>
-<span class="lineno">15</span> <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;/home/bikz05/Desktop/dataset/keypoints.txt&quot;</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span>
-<span class="lineno">16</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">cPickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
-<span class="lineno">17</span> <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17</pre></td><td class="code"><pre><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">cPickle</span>
 
-<p>We have saved our keypoints in <code>keypoints.txt</code>. Now, let’s load those keypoints in a separate script and draw them on the same image.</p>
+<span class="n">im</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s">"/home/bikz05/Desktop/dataset/checkered-3.jpg"</span><span class="p">)</span>
+<span class="n">gr</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">cvtColor</span><span class="p">(</span><span class="n">im</span><span class="p">,</span><span class="n">cv2</span><span class="o">.</span><span class="n">COLOR_BGR2GRAY</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">FeatureDetector_create</span><span class="p">(</span><span class="s">"SIFT"</span><span class="p">)</span>
+<span class="n">kp</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">detect</span><span class="p">(</span><span class="n">gr</span><span class="p">)</span>
+
+<span class="n">index</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">kp</span><span class="p">:</span>
+<span class="n">temp</span> <span class="o">=</span> <span class="p">(</span><span class="n">point</span><span class="o">.</span><span class="n">pt</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">angle</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">response</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">octave</span><span class="p">,</span> <span class="n">point</span><span class="o">.</span><span class="n">class_id</span>
+<span class="n">index</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+
+<span class="c"># Dump the keypoints</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">"/home/bikz05/Desktop/dataset/keypoints.txt"</span><span class="p">,</span> <span class="s">"w"</span><span class="p">)</span>
+<span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">cPickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">index</span><span class="p">))</span>
+<span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>We have saved our keypoints in <code class="highlighter-rouge">keypoints.txt</code>. Now, let’s load those keypoints in a separate script and draw them on the same image.</p>
 
 <p>Now let’s write second script which will load the keypoints from the file and display them on the image.</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="lineno"> 1</span> <span class="kn">import</span> <span class="nn">cv2</span>
-<span class="lineno"> 2</span> <span class="kn">import</span> <span class="nn">cPickle</span>
-<span class="lineno"> 3</span> 
-<span class="lineno"> 4</span> <span class="n">im</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s">&quot;/home/bikz05/Desktop/dataset/checkered-3.jpg&quot;</span><span class="p">)</span>
-<span class="lineno"> 5</span> <span class="n">index</span> <span class="o">=</span> <span class="n">cPickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s">&quot;/home/bikz05/Desktop/dataset/keypoints.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
-<span class="lineno"> 6</span> <span class="n">kp</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="lineno"> 7</span> 
-<span class="lineno"> 8</span> <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
-<span class="lineno"> 9</span>     <span class="n">temp</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">KeyPoint</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">y</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span><span class="n">_size</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_angle</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">_response</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">_octave</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">_class_id</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> 
-<span class="lineno">10</span>     <span class="n">kp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
-<span class="lineno">11</span> 
-<span class="lineno">12</span> <span class="c"># Draw the keypoints</span>
-<span class="lineno">13</span> <span class="n">imm</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">drawKeypoints</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">kp</span><span class="p">);</span>
-<span class="lineno">14</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s">&quot;Image&quot;</span><span class="p">,</span> <span class="n">imm</span><span class="p">);</span>
-<span class="lineno">15</span> <span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table style="border-spacing: 0"><tbody><tr><td class="gutter gl" style="text-align: right"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15</pre></td><td class="code"><pre><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="kn">import</span> <span class="nn">cPickle</span>
+
+<span class="n">im</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="s">"/home/bikz05/Desktop/dataset/checkered-3.jpg"</span><span class="p">)</span>
+<span class="n">index</span> <span class="o">=</span> <span class="n">cPickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s">"/home/bikz05/Desktop/dataset/keypoints.txt"</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="n">kp</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">index</span><span class="p">:</span>
+    <span class="n">temp</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">KeyPoint</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">y</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span><span class="n">_size</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">_angle</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">_response</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">_octave</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">_class_id</span><span class="o">=</span><span class="n">point</span><span class="p">[</span><span class="mi">5</span><span class="p">])</span> 
+    <span class="n">kp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+
+<span class="c"># Draw the keypoints</span>
+<span class="n">imm</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">drawKeypoints</span><span class="p">(</span><span class="n">im</span><span class="p">,</span> <span class="n">kp</span><span class="p">);</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s">"Image"</span><span class="p">,</span> <span class="n">imm</span><span class="p">);</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w">
+</span></pre></td></tr></tbody></table></code></pre></figure>
 
 <p>That’s it, the above script when run will display the image with all the keypoints marked on it.</p>
 

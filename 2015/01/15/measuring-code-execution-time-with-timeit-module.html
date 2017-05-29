@@ -23,7 +23,7 @@
 ">
 
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="canonical" href="http://bikz05.github.io/2015/01/15/measuring-code-execution-time-with-timeit-module.html">
+    <link rel="canonical" href="http://localhost:4000/2015/01/15/measuring-code-execution-time-with-timeit-module.html">
 </head>
 
 
@@ -161,6 +161,10 @@ font-family: 'Roboto', sans-serif;
 	  
 	
 	  
+	  <a class="page-link" href="/robotics-links/">Robotics Links</a>
+	  
+	
+	  
 	
 	  
 	
@@ -220,98 +224,98 @@ font-family: 'Roboto', sans-serif;
   </header>
 
   <article class="post-content" style="font-family: 'Roboto', sans-serif;">
-    <p>Recently, I needed to measure the execution time of a piece of python code. I used python’s <code>timeit</code> module to accomplish this task. The <code>timeit</code> module can also be accessed from the command line. I will also discuss about it succinctly in the end.</p>
+    <p>Recently, I needed to measure the execution time of a piece of python code. I used python’s <code class="highlighter-rouge">timeit</code> module to accomplish this task. The <code class="highlighter-rouge">timeit</code> module can also be accessed from the command line. I will also discuss about it succinctly in the end.</p>
 
-<p>So, now let’s use the timeit module. We will use the timeit function from the timeit module to measure the execution time of a function named <code>divide</code>. The <code>divide</code> function is as below -</p>
+<p>So, now let’s use the timeit module. We will use the timeit function from the timeit module to measure the execution time of a function named <code class="highlighter-rouge">divide</code>. The <code class="highlighter-rouge">divide</code> function is as below -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">divide</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-<span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">divide</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+<span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span></code></pre></figure>
 
-<p>The signature of <code>timeit.timeit</code> function is as below -</p>
+<p>The signature of <code class="highlighter-rouge">timeit.timeit</code> function is as below -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="n">stmt</span><span class="o">=</span><span class="s">&#39;pass&#39;</span><span class="p">,</span> <span class="n">setup</span><span class="o">=</span><span class="s">&#39;pass&#39;</span><span class="p">,</span> <span class="n">timer</span><span class="o">=&lt;</span><span class="n">default</span> <span class="n">timer</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">1000000</span><span class="p">)</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="n">stmt</span><span class="o">=</span><span class="s">'pass'</span><span class="p">,</span> <span class="n">setup</span><span class="o">=</span><span class="s">'pass'</span><span class="p">,</span> <span class="n">timer</span><span class="o">=&lt;</span><span class="n">default</span> <span class="n">timer</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">1000000</span><span class="p">)</span></code></pre></figure>
 
 <p>Here -</p>
 
 <ol>
-  <li><code>stmt</code>  - pass the statement(s) or the function or any block of code whose execution time needs to be measured.</li>
-  <li><code>setup</code>  - pass the setup code. This code runs only once. It is usually used to import modules.</li>
-  <li><code>timer</code>  - pass the timer that is used to measure the code. Default timer will be platform dependent.</li>
-  <li><code>number</code>  - the number of time the code will run. The default value is 1000000.</li>
+  <li><code class="highlighter-rouge">stmt</code>  - pass the statement(s) or the function or any block of code whose execution time needs to be measured.</li>
+  <li><code class="highlighter-rouge">setup</code>  - pass the setup code. This code runs only once. It is usually used to import modules.</li>
+  <li><code class="highlighter-rouge">timer</code>  - pass the timer that is used to measure the code. Default timer will be platform dependent.</li>
+  <li><code class="highlighter-rouge">number</code>  - the number of time the code will run. The default value is 1000000.</li>
 </ol>
 
-<p>Remember, the <code>timeit.timeit</code> function will give us the sum of all the loop timings.</p>
+<p>Remember, the <code class="highlighter-rouge">timeit.timeit</code> function will give us the sum of all the loop timings.</p>
 
-<p>So, let’s use the <code>timeit.timeit</code> function to test our function’s execution time. We can do it in one line of code -</p>
+<p>So, let’s use the <code class="highlighter-rouge">timeit.timeit</code> function to test our function’s execution time. We can do it in one line of code -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="s">&quot;divide(10, 2.4)&quot;</span><span class="p">,</span> <span class="s">&quot;from __main__ import divide&quot;</span><span class="p">,</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">timeit</span><span class="o">.</span><span class="n">timeit</span><span class="p">(</span><span class="s">"divide(10, 2.4)"</span><span class="p">,</span> <span class="s">"from __main__ import divide"</span><span class="p">,</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span></code></pre></figure>
 
 <p>The output will be -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="mf">1.4066696166992188e-05</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="mf">1.4066696166992188e-05</span></code></pre></figure>
 
 <p>It takes about 14 micro seconds for our function to run 10 times.</p>
 
-<p>Now let’s change the values of <code>number</code> and see the timings -</p>
+<p>Now let’s change the values of <code class="highlighter-rouge">number</code> and see the timings -</p>
 
 <ol>
-  <li><code>number</code>  = 100, Timing = 6.794929504394531e-05</li>
-  <li><code>number</code>  = 1000, Timing = 0.0005660057067871094</li>
-  <li><code>number</code> = 10000, Timing = 0.005716800689697266</li>
-  <li><code>number</code>  = 100000, Timing = 0.04524493217468262</li>
+  <li><code class="highlighter-rouge">number</code>  = 100, Timing = 6.794929504394531e-05</li>
+  <li><code class="highlighter-rouge">number</code>  = 1000, Timing = 0.0005660057067871094</li>
+  <li><code class="highlighter-rouge">number</code> = 10000, Timing = 0.005716800689697266</li>
+  <li><code class="highlighter-rouge">number</code>  = 100000, Timing = 0.04524493217468262</li>
 </ol>
 
-<p>To run the <code>timeit.timeit</code> function multiple times on the same input parameters, we can use the <code>timeit.repeat</code>  function. This function returns a python list  which contains all the timings. The signature of <code>timeit.repeat</code> is as below -</p>
+<p>To run the <code class="highlighter-rouge">timeit.timeit</code> function multiple times on the same input parameters, we can use the <code class="highlighter-rouge">timeit.repeat</code>  function. This function returns a python list  which contains all the timings. The signature of <code class="highlighter-rouge">timeit.repeat</code> is as below -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">timeit</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">stmt</span><span class="o">=</span><span class="s">&#39;pass&#39;</span><span class="p">,</span> <span class="n">setup</span><span class="o">=</span><span class="s">&#39;pass&#39;</span><span class="p">,</span><span class="n">timer</span><span class="o">=&lt;</span><span class="n">default</span> <span class="n">timer</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">1000000</span><span class="p">)</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">timeit</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">stmt</span><span class="o">=</span><span class="s">'pass'</span><span class="p">,</span> <span class="n">setup</span><span class="o">=</span><span class="s">'pass'</span><span class="p">,</span><span class="n">timer</span><span class="o">=&lt;</span><span class="n">default</span> <span class="n">timer</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">repeat</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="mi">1000000</span><span class="p">)</span></code></pre></figure>
 
 <p>Here,</p>
 
 <ol>
-  <li><code>stmt</code> - pass the statement(s) or the function or any block of code whose execution time needs to be measured.</li>
-  <li><code>setup</code> - pass the setup code. This code runs only once. It is usually used to import modules.</li>
-  <li><code>timer</code> - pass the timer that is used to measure the code. Default timer will be platform dependent.</li>
-  <li><code>number</code> - the number of time the code will run. The default value is 1000000.</li>
-  <li><code>repeat</code> - the number of times the <code>timeit.timeit</code> function will be called. Default value of this is 3.</li>
+  <li><code class="highlighter-rouge">stmt</code> - pass the statement(s) or the function or any block of code whose execution time needs to be measured.</li>
+  <li><code class="highlighter-rouge">setup</code> - pass the setup code. This code runs only once. It is usually used to import modules.</li>
+  <li><code class="highlighter-rouge">timer</code> - pass the timer that is used to measure the code. Default timer will be platform dependent.</li>
+  <li><code class="highlighter-rouge">number</code> - the number of time the code will run. The default value is 1000000.</li>
+  <li><code class="highlighter-rouge">repeat</code> - the number of times the <code class="highlighter-rouge">timeit.timeit</code> function will be called. Default value of this is 3.</li>
 </ol>
 
-<p>So, lets use the <code>timeit.repeat</code> function -</p>
+<p>So, lets use the <code class="highlighter-rouge">timeit.repeat</code> function -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">timeit</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s">&quot;divide(10, 2.4)&quot;</span><span class="p">,</span> <span class="s">&quot;from __main__ import divide&quot;</span><span class="p">,</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">100000</span><span class="p">)</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">timeit</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s">"divide(10, 2.4)"</span><span class="p">,</span> <span class="s">"from __main__ import divide"</span><span class="p">,</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">100000</span><span class="p">)</span></code></pre></figure>
 
 <p>The output is a list as shown below -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">[</span><span class="mf">0.044139862060546875</span><span class="p">,</span> <span class="mf">0.03439211845397949</span><span class="p">,</span> <span class="mf">0.03469586372375488</span><span class="p">]</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">[</span><span class="mf">0.044139862060546875</span><span class="p">,</span> <span class="mf">0.03439211845397949</span><span class="p">,</span> <span class="mf">0.03469586372375488</span><span class="p">]</span></code></pre></figure>
 
 <p>To get the best timings we can use python’s min  function as shown below.</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="nb">min</span><span class="p">(</span><span class="n">timeit</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s">&quot;divide(10, 2.4)&quot;</span><span class="p">,</span> <span class="s">&quot;from __main__ import divide&quot;</span><span class="p">,</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">100000</span><span class="p">,</span> <span class="n">repeat</span> <span class="o">=</span> <span class="mi">100</span><span class="p">))</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="nb">min</span><span class="p">(</span><span class="n">timeit</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s">"divide(10, 2.4)"</span><span class="p">,</span> <span class="s">"from __main__ import divide"</span><span class="p">,</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">100000</span><span class="p">,</span> <span class="n">repeat</span> <span class="o">=</span> <span class="mi">100</span><span class="p">))</span></code></pre></figure>
 
 <p>The output is -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="mf">0.034729957580566406</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="mf">0.034729957580566406</span></code></pre></figure>
 
 <h2 id="using-the-command-line">Using the Command Line</h2>
 
 <p>In case, you are interested in running the code from command line, use the following command -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="o">&lt;</span><span class="n">name</span> <span class="n">of</span> <span class="n">module</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">setup</span> <span class="n">code</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">n</span> <span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">r</span> <span class="o">&lt;</span><span class="n">repeat</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">statement</span> <span class="ow">or</span> <span class="n">function</span> <span class="n">name</span> <span class="n">whose</span> <span class="n">execution</span> <span class="n">time</span> <span class="n">needs</span> <span class="n">to</span> <span class="n">be</span> <span class="n">measured</span><span class="o">&gt;</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="o">&lt;</span><span class="n">name</span> <span class="n">of</span> <span class="n">module</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">setup</span> <span class="n">code</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">n</span> <span class="o">&lt;</span><span class="n">number</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">r</span> <span class="o">&lt;</span><span class="n">repeat</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">statement</span> <span class="ow">or</span> <span class="n">function</span> <span class="n">name</span> <span class="n">whose</span> <span class="n">execution</span> <span class="n">time</span> <span class="n">needs</span> <span class="n">to</span> <span class="n">be</span> <span class="n">measured</span><span class="o">&gt;</span></code></pre></figure>
 
 <p>There are also other options that you can pass. We can test the execution time of our divide  function that we created earlier using command line -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">timeit</span> <span class="o">-</span><span class="n">s</span> <span class="s">&quot;from divide import divide&quot;</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100000</span> <span class="o">-</span><span class="n">r</span> <span class="mi">100</span> <span class="s">&quot;divide(10,2.4)&quot;</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">timeit</span> <span class="o">-</span><span class="n">s</span> <span class="s">"from divide import divide"</span> <span class="o">-</span><span class="n">n</span> <span class="mi">100000</span> <span class="o">-</span><span class="n">r</span> <span class="mi">100</span> <span class="s">"divide(10,2.4)"</span></code></pre></figure>
 
 <p>The output will be -</p>
 
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="mi">100000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">100</span><span class="p">:</span> <span class="mf">0.324</span> <span class="n">usec</span> <span class="n">per</span> <span class="n">loop</span></code></pre></div>
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="mi">100000</span> <span class="n">loops</span><span class="p">,</span> <span class="n">best</span> <span class="n">of</span> <span class="mi">100</span><span class="p">:</span> <span class="mf">0.324</span> <span class="n">usec</span> <span class="n">per</span> <span class="n">loop</span></code></pre></figure>
 
-<p>We run the code in 1000000 loops for 100 times and get the best timing 0.324 usec per loop. Remember, here the output is usec per loop, using <code>timeit.timeit</code> function the output was the sum of all the loops.</p>
+<p>We run the code in 1000000 loops for 100 times and get the best timing 0.324 usec per loop. Remember, here the output is usec per loop, using <code class="highlighter-rouge">timeit.timeit</code> function the output was the sum of all the loops.</p>
 
 <p>I hope you liked my post, Thank You. Additionally, I recommend checking this <a href="http://stackoverflow.com/questions/8220801/how-to-use-timeit-module">Stack Overflow </a>thread and this <a href="https://docs.python.org/2/library/timeit.html">official documentation</a> page.</p>
 
 <h2 id="using-ipython-notebook">Using IPython Notebook</h2>
 
-<p>In IPython Notebook, you can use the magic function <code>%timeit</code> to measure the execution time of your code.</p>
+<p>In IPython Notebook, you can use the magic function <code class="highlighter-rouge">%timeit</code> to measure the execution time of your code.</p>
 
   </article>
   
